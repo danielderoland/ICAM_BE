@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="ToolBox BE Icam — Dashboard des méthodes & outils du Bureau d'Études. Centralise, forme et accompagne les équipes projet." />
+<title>ToolBox BE · Méthodes & Outils — Icam</title>
+<style>
+/* =========================================================================
+   ICAM TOOLBOX BE — Design System
+   ========================================================================= */
+:root{
+  /* Brand */
+  --brand:#ED5A1E;            /* Icam orange */
+  --brand-600:#D94E15;
+  --brand-700:#B83F0F;
+  --brand-soft:rgba(237,90,30,.12);
+  --brand-glow:rgba(237,90,30,.35);
+
+  /* Category accents */
+  --c-norm:#3B82F6;           /* Normalisation - bleu */
+  --c-norm-soft:rgba(59,130,246,.12);
+  --c-tools:#ED5A1E;          /* Outils - orange */
+  --c-tools-soft:rgba(237,90,30,.12);
+  --c-method:#10B981;         /* Méthode - vert */
+  --c-method-soft:rgba(16,185,129,.12);
+
+  /* Neutrals - light */
+  --bg:#F4F6FB;
+  --bg-grad-1:#EEF2FA;
+  --bg-grad-2:#F8FAFC;
+  --surface:#FFFFFF;
+  --surface-2:#F8FAFC;
+  --surface-3:#EFF3F9;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+  --text:#0F172A;
+  --text-2:#475569;
+  --text-3:#94A3B8;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 1px 3px rgba(15,23,42,.06);
+  --shadow-md:0 4px 6px rgba(15,23,42,.04),0 10px 20px rgba(15,23,42,.06);
+  --shadow-lg:0 12px 24px rgba(15,23,42,.08),0 24px 48px rgba(15,23,42,.10);
+  --shadow-brand:0 12px 32px rgba(237,90,30,.28);
+
+  --radius:18px;
+  --radius-sm:12px;
+  --radius-lg:26px;
+  --sidebar-w:282px;
+  --topbar-h:72px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --font:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0A0F1C;
+  --bg-grad-1:#0C1424;
+  --bg-grad-2:#0A0F1C;
+  --surface:#111A2E;
+  --surface-2:#16213A;
+  --surface-3:#1B2842;
+  --border:#1E2C49;
+  --border-strong:#2A3B5E;
+  --text:#F1F5F9;
+  --text-2:#A6B4CC;
+  --text-3:#64748B;
+  --brand-soft:rgba(237,90,30,.18);
+  --c-norm-soft:rgba(59,130,246,.16);
+  --c-tools-soft:rgba(237,90,30,.18);
+  --c-method-soft:rgba(16,185,129,.16);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 6px 18px rgba(0,0,0,.45);
+  --shadow-lg:0 18px 48px rgba(0,0,0,.6);
+  --shadow-brand:0 12px 32px rgba(237,90,30,.4);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 100% -10%,var(--brand-soft),transparent 55%),
+    linear-gradient(180deg,var(--bg-grad-1),var(--bg-grad-2));
+  background-attachment:fixed;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+  transition:background .4s var(--ease),color .3s var(--ease);
+}
+::selection{background:var(--brand-glow);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%}
+
+/* Scrollbar */
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+*::-webkit-scrollbar-thumb:hover{background:var(--text-3)}
+*::-webkit-scrollbar-track{background:transparent}
+
+/* =========================================================================
+   LAYOUT
+   ========================================================================= */
+.app{display:flex;min-height:100vh}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width:var(--sidebar-w);
+  flex-shrink:0;
+  position:fixed;
+  inset:0 auto 0 0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  z-index:60;
+  transition:transform .35s var(--ease);
+}
+.brand{
+  display:flex;align-items:center;gap:12px;
+  padding:22px 24px;
+  border-bottom:1px solid var(--border);
+}
+.brand-logo{
+  display:flex;align-items:flex-end;gap:2px;
+}
+.icam-word{
+  font-weight:800;font-size:1.5rem;letter-spacing:-.04em;
+  color:var(--text);position:relative;line-height:1;
+}
+.icam-word .dot{
+  position:absolute;top:-6px;left:6px;width:7px;height:7px;border-radius:50%;
+  background:var(--brand);box-shadow:0 0 0 0 var(--brand-glow);
+  animation:pulse 3s var(--ease) infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--brand-glow)}50%{box-shadow:0 0 0 5px transparent}}
+.brand-sub{font-size:.66rem;font-weight:700;letter-spacing:.16em;color:var(--brand);text-transform:uppercase}
+.brand-bars{display:flex;gap:3px;margin-left:auto;align-items:flex-end;height:18px}
+.brand-bars i{width:3px;background:var(--brand);border-radius:2px;opacity:.85}
+.brand-bars i:nth-child(1){height:7px}.brand-bars i:nth-child(2){height:11px}
+.brand-bars i:nth-child(3){height:15px}.brand-bars i:nth-child(4){height:18px;opacity:.5}
+.brand-bars i:nth-child(5){height:12px;opacity:.3}
+
+.nav{flex:1;overflow-y:auto;padding:18px 14px}
+.nav-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);padding:14px 12px 8px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  width:100%;padding:11px 12px;border-radius:12px;
+  color:var(--text-2);font-size:.92rem;font-weight:600;
+  text-align:left;transition:all .2s var(--ease);position:relative;
+}
+.nav-item .ni-icon{width:20px;height:20px;flex-shrink:0;display:grid;place-items:center;color:var(--text-3);transition:color .2s}
+.nav-item .ni-count{margin-left:auto;font-size:.72rem;font-weight:700;color:var(--text-3);
+  background:var(--surface-3);padding:2px 8px;border-radius:20px;transition:all .2s}
+.nav-item:hover{background:var(--surface-2);color:var(--text)}
+.nav-item:hover .ni-icon{color:var(--brand)}
+.nav-item.active{background:var(--brand-soft);color:var(--brand)}
+.nav-item.active .ni-icon{color:var(--brand)}
+.nav-item.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--brand);border-radius:0 4px 4px 0}
+.nav-item.active .ni-count{background:var(--brand);color:#fff}
+
+.sidebar-foot{padding:16px 18px;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-3);line-height:1.7}
+.sidebar-foot strong{color:var(--text-2);font-weight:700}
+
+/* ---------- Main ---------- */
+.main{flex:1;margin-left:var(--sidebar-w);min-width:0;display:flex;flex-direction:column}
+
+/* Topbar */
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--topbar-h);
+  display:flex;align-items:center;gap:16px;
+  padding:0 30px;
+  background:color-mix(in srgb,var(--surface) 80%,transparent);
+  backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--border);
+}
+.menu-btn{display:none;width:42px;height:42px;border-radius:12px;background:var(--surface-2);
+  align-items:center;justify-content:center;border:1px solid var(--border)}
+.search{
+  flex:1;max-width:520px;position:relative;display:flex;align-items:center;
+}
+.search svg{position:absolute;left:15px;color:var(--text-3);pointer-events:none}
+.search input{
+  width:100%;height:46px;border-radius:14px;
+  border:1px solid var(--border);background:var(--surface-2);
+  padding:0 96px 0 44px;font-size:.92rem;color:var(--text);
+  transition:all .25s var(--ease);
+}
+.search input::placeholder{color:var(--text-3)}
+.search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft);background:var(--surface)}
+.search kbd{position:absolute;right:14px;font-size:.7rem;font-weight:600;color:var(--text-3);
+  background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-family:var(--font)}
+.topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.icon-btn{
+  width:44px;height:44px;border-radius:12px;background:var(--surface-2);
+  border:1px solid var(--border);display:grid;place-items:center;color:var(--text-2);
+  transition:all .2s var(--ease);
+}
+.icon-btn:hover{color:var(--brand);border-color:var(--brand);transform:translateY(-1px)}
+.theme-toggle .moon{display:none}
+[data-theme="dark"] .theme-toggle .sun{display:none}
+[data-theme="dark"] .theme-toggle .moon{display:block}
+
+/* Content */
+.content{padding:34px 30px 70px;max-width:1320px;width:100%;margin:0 auto}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(135deg,#16233F 0%,#0F1A30 60%,#13294A 100%);
+  color:#fff;padding:42px 44px;margin-bottom:30px;
+  box-shadow:var(--shadow-lg);
+  isolation:isolate;
+}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(600px 300px at 88% -20%,rgba(237,90,30,.55),transparent 60%),
+             radial-gradient(500px 400px at 10% 120%,rgba(59,130,246,.35),transparent 55%)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;z-index:-1;
+  background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.05),transparent);border-radius:50%;
+  animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:#FFD3BC;
+  background:rgba(237,90,30,.18);border:1px solid rgba(237,90,30,.4);
+  padding:6px 14px;border-radius:30px;margin-bottom:18px}
+.hero-badge .live{width:7px;height:7px;border-radius:50%;background:#FF7A45;box-shadow:0 0 0 0 rgba(255,122,69,.7);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:14px}
+.hero h1 span{background:linear-gradient(90deg,#FF8A50,#FFC09A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:620px;color:#C7D2E8;font-size:1.02rem;line-height:1.65}
+.hero-stats{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.hstat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:16px 22px;min-width:130px;backdrop-filter:blur(6px);
+  transition:transform .3s var(--ease),background .3s}
+.hstat:hover{transform:translateY(-3px);background:rgba(255,255,255,.1)}
+.hstat .num{font-size:1.9rem;font-weight:800;line-height:1;letter-spacing:-.02em}
+.hstat .lbl{font-size:.78rem;color:#A9B8D4;margin-top:6px;font-weight:600}
+
+/* ---------- Filters ---------- */
+.toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.section-head h2{font-size:1.45rem;font-weight:800;letter-spacing:-.02em}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:30px;font-size:.86rem;font-weight:600;
+  background:var(--surface);border:1px solid var(--border);color:var(--text-2);
+  transition:all .22s var(--ease);
+}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--text-3)}
+.chip:hover{border-color:var(--border-strong);transform:translateY(-1px);color:var(--text)}
+.chip.active{color:#fff;border-color:transparent;box-shadow:var(--shadow-md)}
+.chip.active[data-cat="all"]{background:linear-gradient(135deg,#1E293B,#334155)}
+.chip.active[data-cat="all"] .dot{background:#fff}
+.chip.active[data-cat="norm"]{background:var(--c-norm)}.chip.active[data-cat="norm"] .dot{background:#fff}
+.chip.active[data-cat="tools"]{background:var(--c-tools)}.chip.active[data-cat="tools"] .dot{background:#fff}
+.chip.active[data-cat="method"]{background:var(--c-method)}.chip.active[data-cat="method"] .dot{background:#fff}
+.chip .cnt{font-size:.74rem;opacity:.7;font-weight:700}
+.view-toggle{margin-left:auto;display:flex;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px}
+.view-toggle button{width:38px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--text-3);transition:all .2s}
+.view-toggle button.active{background:var(--brand-soft);color:var(--brand)}
+
+/* ---------- Cards grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+.grid.list-view{grid-template-columns:1fr}
+
+.card{
+  position:relative;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px;cursor:pointer;overflow:hidden;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+  display:flex;flex-direction:column;
+  animation:cardIn .5s var(--ease) backwards;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card::after{content:"";position:absolute;left:0;top:0;height:100%;width:4px;
+  background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease)}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.card:hover::after{transform:scaleY(1)}
+.card:focus-visible{outline:none;box-shadow:0 0 0 3px var(--accent),var(--shadow-lg)}
+.card[data-cat="norm"]{--accent:var(--c-norm);--accent-soft:var(--c-norm-soft)}
+.card[data-cat="tools"]{--accent:var(--c-tools);--accent-soft:var(--c-tools-soft)}
+.card[data-cat="method"]{--accent:var(--c-method);--accent-soft:var(--c-method-soft)}
+
+.card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.card-icon{
+  width:52px;height:52px;border-radius:15px;flex-shrink:0;
+  display:grid;place-items:center;color:var(--accent);
+  background:var(--accent-soft);transition:transform .35s var(--ease);
+}
+.card:hover .card-icon{transform:scale(1.08) rotate(-4deg)}
+.card-icon svg{width:26px;height:26px}
+.card-cat{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.card h3{font-size:1.12rem;font-weight:750;letter-spacing:-.01em;line-height:1.25;color:var(--text)}
+.card-tag{position:absolute;top:20px;right:20px;font-size:.66rem;font-weight:700;
+  padding:4px 10px;border-radius:20px;background:var(--surface-3);color:var(--text-2);letter-spacing:.03em}
+.card-tag.central{background:var(--brand);color:#fff;box-shadow:var(--shadow-brand)}
+.card p.desc{color:var(--text-2);font-size:.9rem;line-height:1.55;flex:1}
+.card-foot{display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap}
+.mini-tag{font-size:.72rem;font-weight:600;color:var(--text-2);background:var(--surface-2);
+  border:1px solid var(--border);padding:4px 10px;border-radius:8px}
+.card-cta{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:.82rem;
+  font-weight:700;color:var(--accent);transition:gap .2s var(--ease)}
+.card:hover .card-cta{gap:9px}
+
+/* list view tweaks */
+.grid.list-view .card{flex-direction:row;align-items:center;gap:20px;padding:18px 24px}
+.grid.list-view .card-top{margin-bottom:0;flex:0 0 auto}
+.grid.list-view .card .card-body{flex:1}
+.grid.list-view .card p.desc{margin-top:4px}
+.grid.list-view .card-foot{margin-top:8px}
+.grid.list-view .card-tag{position:static;margin-left:8px}
+
+/* empty state */
+.empty{display:none;text-align:center;padding:70px 20px;color:var(--text-3)}
+.empty svg{margin-bottom:16px;opacity:.5}
+.empty h3{color:var(--text-2);font-weight:700;margin-bottom:6px}
+
+/* ---------- Drive tree section ---------- */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;margin-top:34px;box-shadow:var(--shadow-sm)}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.panel-head .ph-icon{width:42px;height:42px;border-radius:12px;background:var(--c-norm-soft);
+  color:var(--c-norm);display:grid;place-items:center}
+.panel-head h2{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.panel-head p{color:var(--text-2);font-size:.9rem}
+.tree{margin-top:22px;font-size:.92rem}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:4px}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-16px;top:0;bottom:50%;width:1px;background:var(--border-strong)}
+.tree ul ul li::after{content:"";position:absolute;left:-16px;top:50%;width:12px;height:1px;background:var(--border-strong)}
+.tree ul ul li:last-child::before{bottom:50%}
+.tnode{display:inline-flex;align-items:center;gap:9px;padding:6px 12px;border-radius:10px;transition:background .2s;cursor:default}
+.tnode:hover{background:var(--surface-2)}
+.tnode svg{flex-shrink:0}
+.tnode.folder svg{color:var(--c-norm)}
+.tnode.folder-1 svg{color:var(--brand)}
+.tnode.file svg{color:var(--text-3)}
+.tnode .badge{font-size:.66rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:4px}
+.badge-warn{background:rgba(245,158,11,.15);color:#D97706}
+.badge-keep{background:var(--c-method-soft);color:#059669}
+.tnode b{font-weight:700}
+.tnode small{color:var(--text-3);font-weight:500;margin-left:4px}
+
+/* relations map */
+.relmap{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px;align-items:stretch}
+.relnode{flex:1;min-width:160px;background:var(--surface-2);border:1px dashed var(--border-strong);
+  border-radius:14px;padding:16px;text-align:center;transition:all .25s var(--ease)}
+.relnode:hover{border-style:solid;border-color:var(--brand);transform:translateY(-3px)}
+.relnode .rn-ic{width:40px;height:40px;border-radius:11px;margin:0 auto 10px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
+.relnode b{display:block;font-size:.9rem;font-weight:700}
+.relnode span{font-size:.78rem;color:var(--text-2)}
+.relflow{display:flex;align-items:center;color:var(--text-3);font-weight:800;font-size:1.3rem;align-self:center}
+
+/* ---------- Modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(8,12,22,.55);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:0;
+}
+.modal-overlay.open{opacity:1;visibility:visible}
+@media(min-width:720px){.modal-overlay{align-items:center;padding:30px}}
+.modal{
+  background:var(--surface);width:100%;max-width:680px;max-height:92vh;overflow-y:auto;
+  border-radius:24px 24px 0 0;box-shadow:var(--shadow-lg);position:relative;
+  transform:translateY(40px);opacity:0;transition:transform .4s var(--ease),opacity .3s;
+}
+@media(min-width:720px){.modal{border-radius:24px;transform:translateY(20px) scale(.97)}}
+.modal-overlay.open .modal{transform:none;opacity:1}
+.modal-banner{position:relative;padding:30px 32px 26px;color:#fff;overflow:hidden}
+.modal-banner::before{content:"";position:absolute;inset:0;z-index:0;background:var(--mb,linear-gradient(135deg,#1E293B,#334155))}
+.modal-banner::after{content:"";position:absolute;right:-40px;bottom:-60px;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);border-radius:50%}
+.modal-banner>*{position:relative;z-index:1}
+.modal-close{position:absolute;top:18px;right:18px;z-index:3;width:40px;height:40px;border-radius:11px;
+  background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;transition:all .2s;backdrop-filter:blur(4px)}
+.modal-close:hover{background:rgba(255,255,255,.28);transform:rotate(90deg)}
+.modal-icon{width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.16);
+  display:grid;place-items:center;margin-bottom:16px;backdrop-filter:blur(4px)}
+.modal-icon svg{width:30px;height:30px}
+.modal-cat{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.modal-banner h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.modal-banner .sub{margin-top:10px;color:rgba(255,255,255,.85);font-size:.96rem;max-width:90%}
+.modal-body{padding:28px 32px 34px}
+.mb-section{margin-bottom:26px}
+.mb-section:last-child{margin-bottom:0}
+.mb-title{display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:13px}
+.mb-title svg{color:var(--accent,var(--brand))}
+.mb-text{color:var(--text-2);font-size:.96rem;line-height:1.65}
+.mb-list{list-style:none;display:grid;gap:10px}
+.mb-list li{display:flex;gap:11px;align-items:flex-start;color:var(--text);font-size:.93rem;line-height:1.5;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.mb-list li svg{flex-shrink:0;margin-top:2px;color:var(--accent,var(--brand))}
+.mb-steps{counter-reset:step;list-style:none;display:grid;gap:12px}
+.mb-steps li{display:flex;gap:13px;align-items:flex-start;font-size:.93rem;color:var(--text);line-height:1.5}
+.mb-steps li::before{counter-increment:step;content:counter(step);flex-shrink:0;
+  width:26px;height:26px;border-radius:50%;background:var(--accent,var(--brand));color:#fff;
+  font-size:.8rem;font-weight:700;display:grid;place-items:center}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kv .item{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 15px}
+.kv .item .k{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-3);margin-bottom:5px}
+.kv .item .v{font-size:.92rem;font-weight:600;color:var(--text)}
+.status-pills{display:flex;gap:8px;flex-wrap:wrap}
+.spill{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;
+  padding:6px 13px;border-radius:30px;border:1px solid var(--border);background:var(--surface-2)}
+.spill .d{width:9px;height:9px;border-radius:50%}
+.actions-row{display:flex;gap:11px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:13px;
+  font-size:.92rem;font-weight:700;transition:all .22s var(--ease)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow-brand)}
+.btn-primary:hover{background:var(--brand-600);transform:translateY(-2px)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+.res-link{display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:13px;
+  background:var(--surface-2);border:1px solid var(--border);transition:all .22s var(--ease);margin-bottom:10px}
+.res-link:hover{border-color:var(--accent,var(--brand));transform:translateX(4px);background:var(--surface)}
+.res-link .rl-ic{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;
+  background:var(--accent-soft,var(--brand-soft));color:var(--accent,var(--brand))}
+.res-link .rl-txt b{display:block;font-size:.92rem;font-weight:700;color:var(--text)}
+.res-link .rl-txt span{font-size:.78rem;color:var(--text-3);word-break:break-all}
+.res-link .rl-go{margin-left:auto;color:var(--text-3)}
+
+/* progress bar (helper) */
+.bar{height:8px;border-radius:20px;background:var(--surface-3);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--brand),#FF8A50)}
+
+/* ---------- Responsive ---------- */
+.backdrop{position:fixed;inset:0;background:rgba(8,12,22,.5);z-index:55;opacity:0;visibility:hidden;transition:.3s}
+@media(max-width:1000px){
+  :root{--sidebar-w:268px}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:none;box-shadow:var(--shadow-lg)}
+  .main{margin-left:0}
+  .menu-btn{display:flex}
+  .backdrop.show{opacity:1;visibility:visible}
+}
+@media(max-width:640px){
+  .topbar{padding:0 16px}.content{padding:22px 16px 60px}
+  .hero{padding:30px 24px}.search kbd{display:none}
+  .panel{padding:20px}
+  .view-toggle{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <span class="icam-word">icam<span class="dot"></span></span>
+      </div>
+      <div class="brand-bars"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div style="padding:16px 24px 4px">
+      <div style="font-size:1.05rem;font-weight:800;letter-spacing:-.02em">ToolBox BE</div>
+      <div class="brand-sub">Méthodes &amp; Outils</div>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="nav-label">Navigation</div>
+      <button class="nav-item active" data-nav="all">
+        <span class="ni-icon">${icon('grid')}</span> Tout afficher
+        <span class="ni-count" id="cnt-all">0</span>
+      </button>
+      <button class="nav-item" data-nav="norm">
+        <span class="ni-icon">${icon('shield')}</span> Normalisation
+        <span class="ni-count" id="cnt-norm">0</span>
+      </button>
+      <button class="nav-item" data-nav="tools">
+        <span class="ni-icon">${icon('tool')}</span> Outils BE
+        <span class="ni-count" id="cnt-tools">0</span>
+      </button>
+      <button class="nav-item" data-nav="method">
+        <span class="ni-icon">${icon('compass')}</span> La Méthode
+        <span class="ni-count" id="cnt-method">0</span>
+      </button>
+      <div class="nav-label">Ressources</div>
+      <button class="nav-item" data-scroll="drive">
+        <span class="ni-icon">${icon('folder')}</span> Arborescence Drive
+      </button>
+      <button class="nav-item" data-scroll="rel">
+        <span class="ni-icon">${icon('share')}</span> Écosystème Notion
+      </button>
+    </nav>
+    <div class="sidebar-foot">
+      <strong>Icam — Site de Toulouse</strong><br>
+      Bureau d'Études · K-310<br>
+      <span style="color:var(--brand);font-weight:700">v02 · Méthodes &amp; Outils</span>
+    </div>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">${icon('menu')}</button>
+      <div class="search">
+        ${icon('search')}
+        <input type="search" id="searchInput" placeholder="Rechercher un outil, une méthode, un cas d'usage…" autocomplete="off" />
+        <kbd>/</kbd>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn theme-toggle" id="themeBtn" aria-label="Thème" title="Basculer clair / sombre">
+          <span class="sun">${icon('sun')}</span><span class="moon">${icon('moon')}</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-badge"><span class="live"></span> Dashboard de formation · Bureau d'Études</div>
+        <h1>La boîte à outils du <span>Bureau d'Études</span><br>centralisée, claire et opérationnelle.</h1>
+        <p>Explorez les méthodes, outils et standards du BE Icam. Une base commune pour former les équipes, fluidifier la gestion de projet et accélérer la montée en compétence des nouveaux arrivants.</p>
+        <div class="hero-stats" id="heroStats"></div>
+      </section>
+
+      <!-- TOOLBAR / FILTERS -->
+      <div class="toolbar">
+        <div class="chips" id="chips">
+          <button class="chip active" data-cat="all"><span class="dot"></span>Tout <span class="cnt" id="chip-all">0</span></button>
+          <button class="chip" data-cat="norm"><span class="dot" style="background:var(--c-norm)"></span>Normalisation <span class="cnt" id="chip-norm">0</span></button>
+          <button class="chip" data-cat="tools"><span class="dot" style="background:var(--c-tools)"></span>Outils BE <span class="cnt" id="chip-tools">0</span></button>
+          <button class="chip" data-cat="method"><span class="dot" style="background:var(--c-method)"></span>Méthode <span class="cnt" id="chip-method">0</span></button>
+        </div>
+        <div class="view-toggle" id="viewToggle">
+          <button class="active" data-view="grid" title="Vue grille">${icon('grid')}</button>
+          <button data-view="list" title="Vue liste">${icon('list')}</button>
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty">
+        ${icon('searchX',48)}
+        <h3>Aucun résultat</h3>
+        <p>Essayez un autre mot-clé ou réinitialisez les filtres.</p>
+      </div>
+
+      <!-- DRIVE TREE -->
+      <section class="panel" id="drive">
+        <div class="panel-head">
+          <div class="ph-icon">${icon('folder')}</div>
+          <div>
+            <h2>Normalisation du Drive</h2>
+            <p>Structure standard imposée à chaque projet — partage, transmission &amp; recherche facilités.</p>
+          </div>
+        </div>
+        <div class="tree" id="tree"></div>
+        <p class="mb-text" style="margin-top:16px;font-size:.88rem">
+          <b style="color:var(--text)">À retenir :</b> le dossier <b>3. Échange</b> est un espace informel — il doit être <b>vidé à chaque fin de projet</b>. Tout le reste est conservé sur le Drive pour la passation (MSI).
+        </p>
+      </section>
+
+      <!-- RELATIONS / ECOSYSTEM -->
+      <section class="panel" id="rel">
+        <div class="panel-head">
+          <div class="ph-icon" style="background:var(--brand-soft);color:var(--brand)">${icon('share')}</div>
+          <div>
+            <h2>Écosystème Notion</h2>
+            <p>Notion est le socle central : il relie les vues, les livrables, les KPIs et la donnée des projets.</p>
+          </div>
+        </div>
+        <div class="relmap">
+          <div class="relnode"><div class="rn-ic">${icon('chrome')}</div><b>Capture to Notion</b><span>Extension Chrome — lie un document à une tâche</span></div>
+          <div class="relflow">${icon('arrowR')}</div>
+          <div class="relnode" style="border-color:var(--brand);border-style:solid;box-shadow:var(--shadow-brand)"><div class="rn-ic">${icon('notion')}</div><b>Notion · Socle BE</b><span>Base commune normalisée de tous les projets</span></div>
+          <div class="relflow">${icon('arrowR')}</div>
+          <div class="relnode"><div class="rn-ic">${icon('gantt')}</div><b>Vue Gantt</b><span>Phases &amp; sous-tâches par projet</span></div>
+          <div class="relflow">+</div>
+          <div class="relnode"><div class="rn-ic">${icon('package')}</div><b>Vue Livrable</b><span>Suivi des livrables &amp; retards</span></div>
+          <div class="relflow">${icon('arrowR')}</div>
+          <div class="relnode"><div class="rn-ic">${icon('chart')}</div><b>KPIs</b><span>Weekly Goal &amp; Retard Livrable</span></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+          <span class="mini-tag">Projets suivis :</span>
+          <span class="spill"><span class="d" style="background:#ED5A1E"></span>SNDC</span>
+          <span class="spill"><span class="d" style="background:#3B82F6"></span>BallTrap</span>
+          <span class="spill"><span class="d" style="background:#10B981"></span>EDP · École de Prod</span>
+          <span class="spill"><span class="d" style="background:#8B5CF6"></span>Coordo Multi-projet</span>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<script>
+/* =========================================================================
+   ICONS — inline SVG library
+   ========================================================================= */
+function icon(name,size){
+  size=size||22;
+  const s='width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+  const P={
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    tool:'<path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L3 18v3h3l6.1-6.1a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1z"/>',
+    compass:'<circle cx="12" cy="12" r="10"/><polygon points="16.2 7.8 14 14 7.8 16.2 10 10"/>',
+    folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    folderOpen:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2H5l-2 8z"/><path d="M3 9l1.5 9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-.8L21 11"/>',
+    file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+    share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/>',
+    menu:'<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>',
+    search:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    searchX:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="9" y1="9" x2="13" y2="13"/><line x1="13" y1="9" x2="9" y2="13"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+    x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    arrowR:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+    target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    bulb:'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/>',
+    check:'<polyline points="20 6 9 17 4 12"/>',
+    link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"/>',
+    play:'<polygon points="6 4 20 12 6 20 6 4"/>',
+    notion:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8v8l8-8v8"/>',
+    chrome:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.2" y1="8" x2="12" y2="8"/><line x1="3.9" y1="6.5" x2="9" y2="14"/><line x1="14.3" y1="20.5" x2="9.5" y2="13.5"/>',
+    gantt:'<rect x="3" y="4" width="9" height="3" rx="1"/><rect x="7" y="10" width="11" height="3" rx="1"/><rect x="5" y="16" width="8" height="3" rx="1"/>',
+    package:'<path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/>',
+    chart:'<line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="11" width="3" height="7"/><rect x="10.5" y="6" width="3" height="12"/><rect x="16" y="14" width="3" height="4"/>',
+    cloud:'<path d="M18 10a4 4 0 0 0-7.7-1.4A4 4 0 1 0 6 18h12a4 4 0 0 0 0-8z"/>',
+    sun2:'<circle cx="12" cy="12" r="5"/>',
+    users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+    contact:'<rect x="3" y="4" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 19a5 5 0 0 1 10 0"/>',
+    clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    cloudy:'<path d="M16 13a4 4 0 0 0-3.5-6.9A5 5 0 0 0 4 9a4 4 0 0 0 .5 8H16a3.5 3.5 0 0 0 0-4z"/><line x1="8" y1="19" x2="8" y2="21"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="16" y1="19" x2="16" y2="21"/>',
+    book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    flag:'<path d="M4 22V4a1 1 0 0 1 .4-.8c2-1.5 4.6-1.5 6.6 0s4.6 1.5 6.6 0L20 2v12l-2.4 1.2c-2 1.5-4.6 1.5-6.6 0s-4.6-1.5-6.6 0"/>',
+    refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 14.8-3.4L23 10M1 14l4.7 4.4A9 9 0 0 0 20.5 15"/>',
+    zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+    pin:'<path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>'
+  };
+  return '<svg '+s+'>'+(P[name]||'')+'</svg>';
+}
+
+/* Replace static ${icon('name'[,size])} placeholders written in the markup
+   with real inline SVG (they are literal text until processed here). */
+document.body.innerHTML=document.body.innerHTML.replace(
+  /\$\{icon\('([^']+)'(?:,\s*(\d+))?\)\}/g,
+  function(_,n,sz){return icon(n,sz?parseInt(sz,10):undefined)}
+);
+
+/* =========================================================================
+   DATA — La ToolBox BE
+   ========================================================================= */
+const CATS={
+  norm:{label:'Normalisation',color:'var(--c-norm)',grad:'linear-gradient(135deg,#1E3A8A,#3B82F6)'},
+  tools:{label:'Outils BE',color:'var(--c-tools)',grad:'linear-gradient(135deg,#B83F0F,#ED5A1E)'},
+  method:{label:'La Méthode',color:'var(--c-method)',grad:'linear-gradient(135deg,#065F46,#10B981)'}
+};
+
+const ITEMS=[
+  {
+    id:'norm-doc',cat:'norm',icon:'book',title:'Normalisation documentaire',
+    tag:'Standard',
+    desc:"Règles de nommage des documents pour garantir une base commune, le partage inter-projets et une recherche rapide par le chef de projet.",
+    tags:['Nommage','Transmission'],
+    objective:"Mettre tout le BE sur la même base afin de fluidifier le partage inter-projets, la transmission et la recherche de documents par le chef de projet.",
+    cases:[
+      "À appliquer dès le lancement du projet pour ancrer la bonne habitude.",
+      "Indispensable pour la passation et la recherche de livrables."
+    ],
+    note:"Ne s'applique pas aux projets à livrables non conventionnels.",
+    risk:"Si elle n'est pas mise en place rapidement, le risque est de prendre l'habitude de ne pas nommer les documents — ce qui mène à une non-adoption de la méthode.",
+    actions:[{label:'Appliquer la convention',type:'primary',icon:'check'}],
+    resources:[{label:'2603_GDP_DI_Normalisation_des_documents_v01',sub:'Document de référence — marche à suivre détaillée',icon:'file'}]
+  },
+  {
+    id:'norm-drive',cat:'norm',icon:'folder',title:'Normalisation du Drive',
+    tag:'Standard',
+    desc:"Arborescence imposée à chaque Drive projet : Projet, École, Échange. Une structure unique pour tous les projets du BE.",
+    tags:['Arborescence','Drive'],
+    objective:"Imposer une structure de Drive identique à chaque projet pour que chacun s'y retrouve, y compris lors de la passation.",
+    cases:[
+      "Organisation libre à l'intérieur du dossier 1. Projet.",
+      "Dossier 3. Échange : dépôt informel entre membres avant dépôt officiel."
+    ],
+    note:"À la fin du MSI, tout reste sur le Drive pour la passation — sauf le dossier 3. Échange qui doit être vidé.",
+    risk:"Vérifier en fin de projet que le dossier Échange est vide et que tout document a été déposé au bon endroit.",
+    structure:true,
+    actions:[{label:'Voir l\'arborescence',type:'ghost',icon:'folder',scroll:'drive'}],
+    resources:[{label:'Drive type : 999_GDP_BE-K310_S2',sub:'Exemple de Drive Gestion de Projet',icon:'cloud'}]
+  },
+  {
+    id:'notion',cat:'tools',icon:'notion',title:'Notion',
+    tag:'central',
+    desc:"L'outil central du BE : il centralise tous les projets sur une base commune normalisée et permet au chef de projet et aux coordinateurs de suivre chaque projet facilement.",
+    tags:['Socle','Gantt','Livrables'],
+    objective:"Donner à tous les projets la même base et permettre au chef de projet / coordinateur de voir et suivre chaque projet facilement. C'est le seul outil utilisé systématiquement par tous.",
+    cases:[
+      "Vue Gantt : projets découpés par phases (vert = terminé, orange = en cours, gris = à venir).",
+      "Vue Livrable : suivi des livrables, la longueur de la barre = nombre de jours de retard.",
+      "Lier un document à une tâche via l'onglet « docs » pour qu'il remonte dans la vue Livrable."
+    ],
+    steps:[
+      "Installer l'extension Chrome « Capture to Notion » et se connecter avec les identifiants Notion.",
+      "Cliquer sur « Add a new form » pour ajouter un lien automatique (⚠ 4 forms max, ni modifiables ni supprimables).",
+      "Remplir la Due Date (début → fin) et la Done Date à la clôture de la tâche.",
+      "Actualiser le statut au fil de l'avancement."
+    ],
+    statuses:[
+      {l:'À faire',c:'#94A3B8'},{l:'En cours',c:'#F59E0B'},{l:'Terminé',c:'#10B981'},
+      {l:'Obsolète',c:'#64748B'},{l:'Bloqué',c:'#EF4444'}
+    ],
+    meta:[
+      {k:'Mis en place par',v:'Daniel de Roland (Chef de Projet)'},
+      {k:'Vues disponibles',v:'Gantt · Livrable'},
+      {k:'Accès',v:'Chrome + Capture to Notion'},
+      {k:'Formation',v:'Mini-formation si non familiarisé'}
+    ],
+    note:"Si les étudiants ne sont pas familiarisés avec l'outil, prévoir une mini-formation de son fonctionnement.",
+    actions:[
+      {label:'Installer Capture to Notion',type:'primary',icon:'chrome',url:'https://chromewebstore.google.com/detail/ldmmifpegigmeammaeckplhnjbbpccmm?utm_source=itemshare-cb'},
+      {label:'Voir l\'écosystème',type:'ghost',icon:'share',scroll:'rel'}
+    ],
+    resources:[{label:'Extension « Capture to Notion »',sub:'chromewebstore.google.com — lier un doc à une tâche',icon:'chrome',url:'https://chromewebstore.google.com/detail/ldmmifpegigmeammaeckplhnjbbpccmm?utm_source=itemshare-cb'}]
+  },
+  {
+    id:'meteo',cat:'tools',icon:'cloudy',title:'Questionnaire Météo',
+    tag:'Hebdomadaire',
+    desc:"Un questionnaire hebdomadaire pour ouvrir le dialogue avec les élèves, faire remonter des informations et percevoir comment chacun vit son projet et son avancement.",
+    tags:['Dialogue','Feedback'],
+    objective:"Ouvrir le dialogue, faire remonter des informations exploitables et comprendre comment chaque élève perçoit son projet et son avancement.",
+    cases:[
+      "Adapter les questions chaque semaine pour obtenir les résultats les plus exploitables.",
+      "Les premières versions servent de contre-exemple : questions trop vagues = infos non exploitables."
+    ],
+    meta:[
+      {k:'Fréquence',v:'Chaque fin de semaine'},
+      {k:'Analyse',v:'Lundi matin'}
+    ],
+    note:"Faire tourner les questions de semaine en semaine pour maximiser la qualité des remontées.",
+    actions:[{label:'Voir les exemples',type:'ghost',icon:'folder'}],
+    resources:[{label:'Drive → 1. Projet → 1.1 Questionnaires',sub:'Exemples de questionnaires (dont contre-exemples)',icon:'folder'}]
+  },
+  {
+    id:'kpi',cat:'tools',icon:'chart',title:'KPIs',
+    tag:'Suivi',
+    desc:"Des indicateurs non pas pour comptabiliser les résultats, mais pour analyser ce qui marche ou non et identifier les problèmes afin d'y apporter des solutions.",
+    tags:['Weekly Goal','Retard Livrable'],
+    objective:"Analyser ce qui fonctionne ou non et identifier les problèmes pour apporter des solutions correctives ou préventives — ce n'est pas un outil de tracking/comptabilité.",
+    cases:[
+      "Weekly Goal : % d'objectifs hebdo atteints par projet. Analyser les raisons des écarts avant de présenter les objectifs de la semaine (lundi).",
+      "Retard Livrable : suivi des retards de livrables par projet et par semaine.",
+      "La plupart des écarts viennent de contretemps planning ou d'objectifs non alignés avec la charge des équipes."
+    ],
+    meta:[
+      {k:'Suivi actuel',v:'Dans Notion'},
+      {k:'Indicateur 1',v:'Weekly Goal (%)'},
+      {k:'Indicateur 2',v:'Retard Livrable'},
+      {k:'Moment d\'analyse',v:'Lundi (avant le Weekly)'}
+    ],
+    actions:[{label:'Suivi dans Notion',type:'ghost',icon:'notion'}],
+    resources:[{label:'Onglet Gestion de Projet (Notion)',sub:'Weekly Goal en début de page · graphiques de suivi',icon:'notion'}]
+  },
+  {
+    id:'pse',cat:'tools',icon:'contact',title:'Référentiel PSE',
+    tag:'Annuaire',
+    desc:"L'annuaire des intervenants : qui contacter selon la question, avec toutes les coordonnées (nom, prénom, salle). Essentiel pour les nouveaux arrivants.",
+    tags:['Contacts','Onboarding'],
+    objective:"Savoir qui contacter en fonction de la question. Particulièrement utile pour les nouveaux arrivants au sein d'un BE.",
+    cases:[
+      "Identifier le bon interlocuteur et ses coordonnées (nom, prénom, salle).",
+      "Réactualisé aussi souvent que possible en fonction des retours."
+    ],
+    actions:[{label:'Ouvrir le référentiel',type:'ghost',icon:'folder'}],
+    resources:[{label:'Drive → 1. Projet → 1.5 Méthodes & Outils → Référentiel PSE',sub:'Coordonnées des intervenants',icon:'folder'}]
+  },
+  {
+    id:'adoption',cat:'tools',icon:'zap',title:'Adoption des outils',
+    tag:'KPI',
+    desc:"Un fichier Excel qui trace l'adoption et la fréquence d'utilisation de chaque outil, notées sur 10 chaque semaine, pour piloter la montée en autonomie.",
+    tags:['Adoption','Fréquence'],
+    objective:"Tracer un graphique croisant deux critères liés — l'adoption et la fréquence — pour chaque outil, et déclencher des actions si l'adoption est faible.",
+    cases:[
+      "Adoption /10 : les étudiants comprennent-ils l'intérêt de l'outil, leur est-il utile, savent-ils s'en servir ?",
+      "Fréquence /10 : à quelle fréquence l'utilisent-ils, sont-ils autonomes ?",
+      "Outils suivis : Gantt Notion, Vue Livrable Notion, Drive, etc.",
+      "À remplir chaque semaine pour suivre l'évolution ; si un outil est peu adopté → mettre en place des actions."
+    ],
+    meta:[
+      {k:'Format',v:'Fichier Excel'},
+      {k:'Notation',v:'Adoption /10 · Fréquence /10'},
+      {k:'Cadence',v:'Hebdomadaire'}
+    ],
+    actions:[{label:'Ouvrir le fichier',type:'ghost',icon:'chart'}],
+    resources:[{label:'Drive → 1.5 Méthodes & Outils → 260415_GDP_KPI_Adoption des outils',sub:'Excel de suivi adoption / fréquence',icon:'chart'}]
+  },
+  {
+    id:'daily',cat:'method',icon:'sun2',title:'Daily',
+    tag:'Quotidien',
+    desc:"Un point quotidien de 5 à 10 minutes pour cadrer la journée, décomposer les grosses tâches, répartir le travail et lever les blocages.",
+    tags:['5-10 min','Tous les jours'],
+    objective:"Identifier rapidement avec les équipes les tâches de la journée, aider à décomposer les grosses tâches, répartir le travail, vérifier l'avancement global et le respect du planning.",
+    cases:[
+      "Aider les équipes à se répartir le travail et décomposer les grosses tâches.",
+      "Identifier les blocages et rediriger vers les bons intervenants.",
+      "Vérifier que le planning est respecté et à jour."
+    ],
+    meta:[
+      {k:'Durée',v:'5 à 10 min maximum'},
+      {k:'Fréquence',v:'Chaque jour (sauf jour du Weekly)'}
+    ],
+    note:"Tout l'intérêt est d'aller vite pour ne pas ralentir la progression des projets. Pas de Daily le jour du Weekly (infos redondantes).",
+    actions:[{label:'Cadrer une Daily',type:'ghost',icon:'clock'}]
+  },
+  {
+    id:'weekly',cat:'method',icon:'calendar',title:'Weekly',
+    tag:'Hebdomadaire',
+    desc:"Le rendez-vous hebdomadaire qui réunit tous les projets : on fixe les objectifs de la semaine, on analyse ceux de la semaine passée et on partage l'avancement de chacun.",
+    tags:['Tous projets','Lundi'],
+    objective:"Fixer les objectifs de la semaine pour chaque projet — adaptés à la charge des équipes et aux attendus du Gantt — et analyser ensemble l'atteinte des objectifs précédents.",
+    cases:[
+      "Discuter de l'atteinte des objectifs de la semaine passée et des raisons des écarts.",
+      "Tous les projets réunis pour que chacun connaisse l'avancement des autres.",
+      "Définir les objectifs en amont (idéalement le vendredi), quitte à les ajuster en réunion."
+    ],
+    meta:[
+      {k:'Participants',v:'Tous les projets réunis'},
+      {k:'Préparation',v:'Objectifs définis le vendredi'},
+      {k:'Lien',v:'S\'appuie sur les KPIs Weekly Goal'}
+    ],
+    note:"Préparer en amont fait gagner du temps. C'est aussi le moment d'analyser les KPIs avant de présenter les objectifs de la semaine.",
+    actions:[{label:'Préparer un Weekly',type:'ghost',icon:'calendar'},{label:'Voir les KPIs',type:'ghost',icon:'chart'}]
+  }
+];
+
+/* Drive structure data */
+const DRIVE={
+  name:'999_GDP_BE-K310_S2',
+  children:[
+    {name:'1. Projet',type:'f1',note:'Organisation libre à l\'intérieur',children:[
+      {name:'1.1 Questionnaires',type:'f'},
+      {name:'1.2 Évolution des compétences',type:'f'},
+      {name:'1.3 Formations',type:'f'},
+      {name:'1.4 Conception',type:'f'},
+      {name:'1.5 Méthodes & Outils',type:'f',children:[
+        {name:'Référentiel PSE',type:'file'},
+        {name:'260415_GDP_KPI_Adoption des outils',type:'file'}
+      ]}
+    ]},
+    {name:'2. École',type:'f1',children:[
+      {name:'2.1 Revue de Lancement',type:'f'},
+      {name:'2.2 Revue de Mi-Projet',type:'f'},
+      {name:'2.3 Revue Soutenance Finale',type:'f'}
+    ]},
+    {name:'3. Échange',type:'f1',badge:'warn',children:[]}
+  ]
+};
+
+/* =========================================================================
+   RENDER
+   ========================================================================= */
+const grid=document.getElementById('grid');
+const empty=document.getElementById('empty');
+let activeCat='all',query='';
+
+function countBy(cat){return cat==='all'?ITEMS.length:ITEMS.filter(i=>i.cat===cat).length}
+['all','norm','tools','method'].forEach(c=>{
+  const n=countBy(c);
+  document.getElementById('cnt-'+c)&&(document.getElementById('cnt-'+c).textContent=n);
+  document.getElementById('chip-'+c)&&(document.getElementById('chip-'+c).textContent=n);
+});
+
+/* hero stats */
+const stats=[
+  {num:ITEMS.length,lbl:'Outils & méthodes'},
+  {num:'3',lbl:'Catégories'},
+  {num:'2',lbl:'Vues Notion'},
+  {num:'4',lbl:'Projets suivis'}
+];
+document.getElementById('heroStats').innerHTML=stats.map(s=>
+  '<div class="hstat"><div class="num" data-count="'+s.num+'">'+(isNaN(s.num)?s.num:'0')+'</div><div class="lbl">'+s.lbl+'</div></div>'
+).join('');
+
+function cardHTML(it){
+  const c=CATS[it.cat];
+  const tagCls=it.tag==='central'?'card-tag central':'card-tag';
+  const tagTxt=it.tag==='central'?'★ Outil central':it.tag;
+  return '<article class="card" data-cat="'+it.cat+'" data-id="'+it.id+'" tabindex="0" role="button" aria-label="'+it.title+'">'
+    +'<span class="'+tagCls+'">'+tagTxt+'</span>'
+    +'<div class="card-top"><div class="card-icon">'+icon(it.icon,26)+'</div>'
+    +'<div class="card-body"><div class="card-cat">'+c.label+'</div><h3>'+it.title+'</h3></div></div>'
+    +'<p class="desc">'+it.desc+'</p>'
+    +'<div class="card-foot">'
+    +(it.tags||[]).map(t=>'<span class="mini-tag">'+t+'</span>').join('')
+    +'<span class="card-cta">Détails '+icon('arrowR',16)+'</span></div>'
+    +'</article>';
+}
+
+function render(){
+  const list=ITEMS.filter(it=>{
+    const okCat=activeCat==='all'||it.cat===activeCat;
+    const hay=(it.title+' '+it.desc+' '+(it.objective||'')+' '+(it.tags||[]).join(' ')+' '+(it.cases||[]).join(' ')).toLowerCase();
+    const okQ=!query||hay.includes(query);
+    return okCat&&okQ;
+  });
+  grid.innerHTML=list.map(cardHTML).join('');
+  empty.style.display=list.length?'none':'block';
+  grid.style.display=list.length?'':'none';
+  // stagger animation
+  [...grid.children].forEach((el,i)=>el.style.animationDelay=(i*45)+'ms');
+}
+render();
+
+/* =========================================================================
+   DRIVE TREE
+   ========================================================================= */
+function treeNode(node){
+  let cls='tnode ',ic='file';
+  if(node.type==='f1'){cls+='folder-1';ic='folderOpen'}
+  else if(node.type==='f'){cls+='folder';ic='folder'}
+  else{cls+='file';ic='file'}
+  let badge='';
+  if(node.badge==='warn')badge='<span class="badge badge-warn">à vider en fin de projet</span>';
+  let note=node.note?'<small>— '+node.note+'</small>':'';
+  let html='<li><span class="'+cls+'">'+icon(ic,17)+'<b>'+node.name+'</b>'+note+badge+'</span>';
+  if(node.children&&node.children.length){
+    html+='<ul>'+node.children.map(treeNode).join('')+'</ul>';
+  }
+  html+='</li>';
+  return html;
+}
+document.getElementById('tree').innerHTML='<ul><li><span class="tnode folder-1">'+icon('cloud',17)+'<b>'+DRIVE.name+'</b><small>— Drive type d\'un projet</small></span><ul>'+DRIVE.children.map(treeNode).join('')+'</ul></li></ul>';
+
+/* =========================================================================
+   MODAL
+   ========================================================================= */
+const overlay=document.getElementById('modalOverlay');
+const modal=document.getElementById('modal');
+
+function sectionTitle(ic,txt){return '<div class="mb-title">'+icon(ic,16)+txt+'</div>'}
+
+function modalHTML(it){
+  const c=CATS[it.cat];
+  let h='';
+  h+='<div class="modal-banner" style="--mb:'+c.grad+'">'
+    +'<button class="modal-close" id="modalClose" aria-label="Fermer">'+icon('x',20)+'</button>'
+    +'<div class="modal-icon">'+icon(it.icon,30)+'</div>'
+    +'<div class="modal-cat">'+c.label+(it.tag==='central'?' · ★ Outil central':'')+'</div>'
+    +'<h2>'+it.title+'</h2>'
+    +'<div class="sub">'+it.desc+'</div>'
+    +'</div>';
+  h+='<div class="modal-body" style="--accent:'+c.color+';--accent-soft:'+(it.cat==='norm'?'var(--c-norm-soft)':it.cat==='tools'?'var(--c-tools-soft)':'var(--c-method-soft)')+'">';
+
+  // Objectif
+  if(it.objective){
+    h+='<div class="mb-section">'+sectionTitle('target','Objectif')
+      +'<p class="mb-text">'+it.objective+'</p></div>';
+  }
+  // Meta
+  if(it.meta){
+    h+='<div class="mb-section">'+sectionTitle('layers','En bref')
+      +'<div class="kv">'+it.meta.map(m=>'<div class="item"><div class="k">'+m.k+'</div><div class="v">'+m.v+'</div></div>').join('')+'</div></div>';
+  }
+  // Steps
+  if(it.steps){
+    h+='<div class="mb-section">'+sectionTitle('play','Mise en œuvre')
+      +'<ol class="mb-steps">'+it.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></div>';
+  }
+  // Cases
+  if(it.cases){
+    h+='<div class="mb-section">'+sectionTitle('bulb','Cas d\'usage')
+      +'<ul class="mb-list">'+it.cases.map(cu=>'<li>'+icon('check',17)+'<span>'+cu+'</span></li>').join('')+'</ul></div>';
+  }
+  // Statuses
+  if(it.statuses){
+    h+='<div class="mb-section">'+sectionTitle('flag','Statuts de tâche')
+      +'<div class="status-pills">'+it.statuses.map(s=>'<span class="spill"><span class="d" style="background:'+s.c+'"></span>'+s.l+'</span>').join('')+'</div></div>';
+  }
+  // Note / risk
+  if(it.note||it.risk){
+    h+='<div class="mb-section">'+sectionTitle('pin','À retenir')
+      +'<ul class="mb-list">'
+      +(it.note?'<li>'+icon('check',17)+'<span>'+it.note+'</span></li>':'')
+      +(it.risk?'<li>'+icon('zap',17)+'<span><b>Vigilance :</b> '+it.risk+'</span></li>':'')
+      +'</ul></div>';
+  }
+  // Resources
+  if(it.resources){
+    h+='<div class="mb-section">'+sectionTitle('link','Ressources associées')
+      +it.resources.map(r=>{
+        const tag=r.url?'a':'div';
+        const attr=r.url?' href="'+r.url+'" target="_blank" rel="noopener"':'';
+        return '<'+tag+' class="res-link"'+attr+'><div class="rl-ic">'+icon(r.icon||'file',19)+'</div>'
+          +'<div class="rl-txt"><b>'+r.label+'</b><span>'+(r.sub||'')+'</span></div>'
+          +'<span class="rl-go">'+icon(r.url?'link':'folder',18)+'</span></'+tag+'>';
+      }).join('')+'</div>';
+  }
+  // Actions
+  if(it.actions){
+    h+='<div class="mb-section">'+sectionTitle('zap','Actions disponibles')
+      +'<div class="actions-row">'+it.actions.map(a=>{
+        if(a.url)return '<a class="btn '+(a.type==='primary'?'btn-primary':'btn-ghost')+'" href="'+a.url+'" target="_blank" rel="noopener">'+icon(a.icon||'arrowR',18)+a.label+'</a>';
+        return '<button class="btn '+(a.type==='primary'?'btn-primary':'btn-ghost')+'"'+(a.scroll?' data-scroll="'+a.scroll+'"':'')+'>'+icon(a.icon||'arrowR',18)+a.label+'</button>';
+      }).join('')+'</div></div>';
+  }
+  h+='</div>';
+  return h;
+}
+
+function openModal(id){
+  const it=ITEMS.find(x=>x.id===id);if(!it)return;
+  modal.innerHTML=modalHTML(it);
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  modal.scrollTop=0;
+  document.getElementById('modalClose').onclick=closeModal;
+  // action buttons that scroll
+  modal.querySelectorAll('[data-scroll]').forEach(b=>b.onclick=()=>{closeModal();scrollTo(b.dataset.scroll)});
+}
+function closeModal(){overlay.classList.remove('open');document.body.style.overflow=''}
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+
+/* card click */
+grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openModal(c.dataset.id)});
+grid.addEventListener('keydown',e=>{const c=e.target.closest('.card');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openModal(c.dataset.id)}});
+
+/* =========================================================================
+   FILTERS / SEARCH / NAV
+   ========================================================================= */
+function setCat(cat){
+  activeCat=cat;
+  document.querySelectorAll('.chip').forEach(ch=>ch.classList.toggle('active',ch.dataset.cat===cat));
+  document.querySelectorAll('.nav-item[data-nav]').forEach(n=>n.classList.toggle('active',n.dataset.nav===cat));
+  render();
+}
+document.getElementById('chips').addEventListener('click',e=>{const ch=e.target.closest('.chip');if(ch)setCat(ch.dataset.cat)});
+
+const searchInput=document.getElementById('searchInput');
+searchInput.addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();render()});
+
+/* nav */
+document.getElementById('nav').addEventListener('click',e=>{
+  const item=e.target.closest('.nav-item');if(!item)return;
+  if(item.dataset.nav){setCat(item.dataset.nav);closeSidebar();window.scrollTo({top:0,behavior:'smooth'})}
+  else if(item.dataset.scroll){scrollTo(item.dataset.scroll);closeSidebar()}
+});
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+
+/* view toggle */
+document.getElementById('viewToggle').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#viewToggle button').forEach(x=>x.classList.toggle('active',x===b));
+  grid.classList.toggle('list-view',b.dataset.view==='list');
+});
+
+/* theme */
+const themeBtn=document.getElementById('themeBtn');
+const saved=localStorage.getItem('icam-theme');
+if(saved)document.documentElement.dataset.theme=saved;
+themeBtn.onclick=()=>{
+  const t=document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=t;localStorage.setItem('icam-theme',t);
+};
+
+/* mobile sidebar */
+const sidebar=document.getElementById('sidebar'),backdrop=document.getElementById('backdrop');
+document.getElementById('menuBtn').onclick=()=>{sidebar.classList.add('open');backdrop.classList.add('show')};
+backdrop.onclick=closeSidebar;
+function closeSidebar(){sidebar.classList.remove('open');backdrop.classList.remove('show')}
+
+/* keyboard: / focus search, esc close */
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement!==searchInput){e.preventDefault();searchInput.focus()}
+  if(e.key==='Escape'){if(overlay.classList.contains('open'))closeModal();else closeSidebar()}
+});
+
+/* count-up animation for hero numbers */
+function countUp(){
+  document.querySelectorAll('.hstat .num[data-count]').forEach(el=>{
+    const target=parseInt(el.dataset.count,10);if(isNaN(target))return;
+    let cur=0;const step=Math.max(1,Math.ceil(target/30));
+    const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t)}el.textContent=cur},28);
+  });
+}
+window.addEventListener('load',countUp);
+</script>
+</body>
+</html>
