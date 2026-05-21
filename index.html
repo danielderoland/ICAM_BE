@@ -11,17 +11,17 @@
    ========================================================================= */
 :root{
   /* Brand */
-  --brand:#ED5A1E;            /* Icam orange */
-  --brand-600:#D94E15;
-  --brand-700:#B83F0F;
-  --brand-soft:rgba(237,90,30,.12);
-  --brand-glow:rgba(237,90,30,.35);
+  --brand:#F39200;
+  --brand-600:#D97E00;
+  --brand-700:#B36C00;
+  --brand-soft:rgba(243,146,0,.12);
+  --brand-glow:rgba(243,146,0,.35);
 
   /* Category accents */
   --c-norm:#3B82F6;           /* Normalisation - bleu */
   --c-norm-soft:rgba(59,130,246,.12);
-  --c-tools:#ED5A1E;          /* Outils - orange */
-  --c-tools-soft:rgba(237,90,30,.12);
+  --c-tools:#F39200;          /* Outils - ambre */
+  --c-tools-soft:rgba(243,146,0,.12);
   --c-method:#10B981;         /* Méthode - vert */
   --c-method-soft:rgba(16,185,129,.12);
 
@@ -40,7 +40,7 @@
   --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 1px 3px rgba(15,23,42,.06);
   --shadow-md:0 4px 6px rgba(15,23,42,.04),0 10px 20px rgba(15,23,42,.06);
   --shadow-lg:0 12px 24px rgba(15,23,42,.08),0 24px 48px rgba(15,23,42,.10);
-  --shadow-brand:0 12px 32px rgba(237,90,30,.28);
+  --shadow-brand:0 12px 32px rgba(243,146,0,.28);
 
   --radius:18px;
   --radius-sm:12px;
@@ -62,14 +62,14 @@
   --text:#F1F5F9;
   --text-2:#A6B4CC;
   --text-3:#64748B;
-  --brand-soft:rgba(237,90,30,.18);
+  --brand-soft:rgba(243,146,0,.18);
   --c-norm-soft:rgba(59,130,246,.16);
-  --c-tools-soft:rgba(237,90,30,.18);
+  --c-tools-soft:rgba(243,146,0,.18);
   --c-method-soft:rgba(16,185,129,.16);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
   --shadow-md:0 6px 18px rgba(0,0,0,.45);
   --shadow-lg:0 18px 48px rgba(0,0,0,.6);
-  --shadow-brand:0 12px 32px rgba(237,90,30,.4);
+  --shadow-brand:0 12px 32px rgba(243,146,0,.4);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -217,7 +217,7 @@ img{max-width:100%}
   isolation:isolate;
 }
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(600px 300px at 88% -20%,rgba(237,90,30,.55),transparent 60%),
+  background:radial-gradient(600px 300px at 88% -20%,rgba(243,146,0,.55),transparent 60%),
              radial-gradient(500px 400px at 10% 120%,rgba(59,130,246,.35),transparent 55%)}
 .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;z-index:-1;
   background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.05),transparent);border-radius:50%;
@@ -225,11 +225,11 @@ img{max-width:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;color:#FFD3BC;
-  background:rgba(237,90,30,.18);border:1px solid rgba(237,90,30,.4);
+  background:rgba(243,146,0,.18);border:1px solid rgba(243,146,0,.4);
   padding:6px 14px;border-radius:30px;margin-bottom:18px}
-.hero-badge .live{width:7px;height:7px;border-radius:50%;background:#FF7A45;box-shadow:0 0 0 0 rgba(255,122,69,.7);animation:pulse 2s infinite}
+.hero-badge .live{width:7px;height:7px;border-radius:50%;background:#F39200;box-shadow:0 0 0 0 rgba(243,146,0,.7);animation:pulse 2s infinite}
 .hero h1{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:14px}
-.hero h1 span{background:linear-gradient(90deg,#FF8A50,#FFC09A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{background:linear-gradient(90deg,#F39200,#FAC04A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{max-width:620px;color:#C7D2E8;font-size:1.02rem;line-height:1.65}
 .hero-stats{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
 .hstat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
@@ -426,7 +426,7 @@ img{max-width:100%}
 
 /* progress bar (helper) */
 .bar{height:8px;border-radius:20px;background:var(--surface-3);overflow:hidden;margin-top:8px}
-.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--brand),#FF8A50)}
+.bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--brand),#FAC04A)}
 
 /* ---------- Responsive ---------- */
 .backdrop{position:fixed;inset:0;background:rgba(8,12,22,.5);z-index:55;opacity:0;visibility:hidden;transition:.3s}
@@ -445,6 +445,52 @@ img{max-width:100%}
   .view-toggle{display:none}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Logo image ---------- */
+.brand-logo-img{
+  height:36px;width:auto;object-fit:contain;display:block;
+}
+
+/* ---------- PDF Preview Modal ---------- */
+.pdf-overlay{align-items:center!important;padding:20px!important}
+.pdf-modal{
+  background:var(--surface);width:100%;max-width:920px;height:90vh;
+  border-radius:20px;box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(20px) scale(.97);opacity:0;
+  transition:transform .4s var(--ease),opacity .3s;
+}
+.modal-overlay.open .pdf-modal{transform:none;opacity:1}
+.pdf-modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.pdf-modal-title{font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.pdf-close{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--surface-2);border:1px solid var(--border);
+  display:grid;place-items:center;color:var(--text-2);
+  transition:all .2s var(--ease);flex-shrink:0;
+}
+.pdf-close:hover{background:var(--brand-soft);color:var(--brand);border-color:var(--brand)}
+.pdf-modal-body{flex:1;overflow:hidden;background:var(--surface-2)}
+.pdf-frame{width:100%;height:100%;border:none;display:block}
+
+/* ---------- PSE inline embed ---------- */
+.pse-embed{
+  width:100%;height:78vh;min-height:500px;border:none;
+  border-radius:12px;margin-top:22px;display:block;
+  background:var(--surface-2);
+}
+
+@media(max-width:720px){
+  .pdf-modal{height:88vh;border-radius:16px}
+  .pdf-overlay{padding:10px!important}
+  .pse-embed{height:60vh;min-height:340px}
+}
+@media(max-width:640px){
+  .pdf-modal-header{padding:12px 16px}
+}
 </style>
 </head>
 <body>
@@ -454,7 +500,7 @@ img{max-width:100%}
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-logo">
-        <span class="icam-word">icam<span class="dot"></span></span>
+        <img src="images/ICAM.png" alt="Icam" class="brand-logo-img" />
       </div>
       <div class="brand-bars"><i></i><i></i><i></i><i></i><i></i></div>
     </div>
@@ -483,6 +529,9 @@ img{max-width:100%}
       <div class="nav-label">Ressources</div>
       <button class="nav-item" data-scroll="drive">
         <span class="ni-icon">${icon('folder')}</span> Arborescence Drive
+      </button>
+      <button class="nav-item" data-scroll="pse-section">
+        <span class="ni-icon">${icon('contact')}</span> Référentiel PSE
       </button>
       <button class="nav-item" data-scroll="rel">
         <span class="ni-icon">${icon('share')}</span> Écosystème Notion
@@ -558,6 +607,23 @@ img{max-width:100%}
         </p>
       </section>
 
+      <!-- RÉFÉRENTIEL PSE INLINE -->
+      <section class="panel" id="pse-section">
+        <div class="panel-head">
+          <div class="ph-icon" style="background:var(--c-tools-soft);color:var(--c-tools)">${icon('contact')}</div>
+          <div>
+            <h2>Référentiel PSE</h2>
+            <p>Annuaire des intervenants — qui contacter selon la question, avec coordonnées complètes (nom, prénom, salle).</p>
+          </div>
+        </div>
+        <iframe
+          class="pse-embed"
+          src="ToolBox/261504_GDP_FOR_R%C3%A9f%C3%A9rentiel%20Intervenants%20PSE%20V2.pdf"
+          title="Référentiel PSE"
+          aria-label="Référentiel des intervenants PSE">
+        </iframe>
+      </section>
+
       <!-- RELATIONS / ECOSYSTEM -->
       <section class="panel" id="rel">
         <div class="panel-head">
@@ -580,7 +646,7 @@ img{max-width:100%}
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
           <span class="mini-tag">Projets suivis :</span>
-          <span class="spill"><span class="d" style="background:#ED5A1E"></span>SNDC</span>
+          <span class="spill"><span class="d" style="background:#F39200"></span>SNDC</span>
           <span class="spill"><span class="d" style="background:#3B82F6"></span>BallTrap</span>
           <span class="spill"><span class="d" style="background:#10B981"></span>EDP · École de Prod</span>
           <span class="spill"><span class="d" style="background:#8B5CF6"></span>Coordo Multi-projet</span>
@@ -593,6 +659,19 @@ img{max-width:100%}
 <!-- ===================== MODAL ===================== -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<!-- ===================== PDF PREVIEW MODAL ===================== -->
+<div class="modal-overlay pdf-overlay" id="pdfOverlay" role="dialog" aria-modal="true" aria-label="Prévisualisation PDF">
+  <div class="pdf-modal" id="pdfModal">
+    <div class="pdf-modal-header">
+      <h3 class="pdf-modal-title" id="pdfTitle">Document</h3>
+      <button class="pdf-close" id="pdfClose" aria-label="Fermer">${icon('x',18)}</button>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe class="pdf-frame" id="pdfFrame" src="" title="Aperçu PDF"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -658,7 +737,7 @@ document.body.innerHTML=document.body.innerHTML.replace(
    ========================================================================= */
 const CATS={
   norm:{label:'Normalisation',color:'var(--c-norm)',grad:'linear-gradient(135deg,#1E3A8A,#3B82F6)'},
-  tools:{label:'Outils BE',color:'var(--c-tools)',grad:'linear-gradient(135deg,#B83F0F,#ED5A1E)'},
+  tools:{label:'Outils BE',color:'var(--c-tools)',grad:'linear-gradient(135deg,#B36C00,#F39200)'},
   method:{label:'La Méthode',color:'var(--c-method)',grad:'linear-gradient(135deg,#065F46,#10B981)'}
 };
 
@@ -675,8 +754,11 @@ const ITEMS=[
     ],
     note:"Ne s'applique pas aux projets à livrables non conventionnels.",
     risk:"Si elle n'est pas mise en place rapidement, le risque est de prendre l'habitude de ne pas nommer les documents — ce qui mène à une non-adoption de la méthode.",
-    actions:[{label:'Appliquer la convention',type:'primary',icon:'check'}],
-    resources:[{label:'2603_GDP_DI_Normalisation_des_documents_v01',sub:'Document de référence — marche à suivre détaillée',icon:'file'}]
+    actions:[
+      {label:'Appliquer la convention',type:'primary',icon:'check'},
+      {label:'Aperçu du document PDF',type:'ghost',icon:'file',pdf:'ToolBox/2603_GDP_DI_Normalisation_des_documents_v01.pdf',pdfTitle:'Normalisation documentaire'}
+    ],
+    resources:[{label:'2603_GDP_DI_Normalisation_des_documents_v01',sub:'Document de référence — marche à suivre détaillée',icon:'file',pdf:'ToolBox/2603_GDP_DI_Normalisation_des_documents_v01.pdf',pdfTitle:'Normalisation documentaire'}]
   },
   {
     id:'norm-drive',cat:'norm',icon:'folder',title:'Normalisation du Drive',
@@ -776,7 +858,7 @@ const ITEMS=[
       "Identifier le bon interlocuteur et ses coordonnées (nom, prénom, salle).",
       "Réactualisé aussi souvent que possible en fonction des retours."
     ],
-    actions:[{label:'Ouvrir le référentiel',type:'ghost',icon:'folder'}],
+    actions:[{label:'Voir le référentiel',type:'ghost',icon:'contact',scroll:'pse-section'}],
     resources:[{label:'Drive → 1. Projet → 1.5 Méthodes & Outils → Référentiel PSE',sub:'Coordonnées des intervenants',icon:'folder'}]
   },
   {
@@ -993,6 +1075,12 @@ function modalHTML(it){
   if(it.resources){
     h+='<div class="mb-section">'+sectionTitle('link','Ressources associées')
       +it.resources.map(r=>{
+        if(r.pdf){
+          return '<div class="res-link" style="cursor:pointer" onclick="openPDF(\''+r.pdf+'\',\''+r.pdfTitle+'\')">'
+            +'<div class="rl-ic">'+icon(r.icon||'file',19)+'</div>'
+            +'<div class="rl-txt"><b>'+r.label+'</b><span>'+(r.sub||'')+'</span></div>'
+            +'<span class="rl-go">'+icon('play',18)+'</span></div>';
+        }
         const tag=r.url?'a':'div';
         const attr=r.url?' href="'+r.url+'" target="_blank" rel="noopener"':'';
         return '<'+tag+' class="res-link"'+attr+'><div class="rl-ic">'+icon(r.icon||'file',19)+'</div>'
@@ -1004,6 +1092,7 @@ function modalHTML(it){
   if(it.actions){
     h+='<div class="mb-section">'+sectionTitle('zap','Actions disponibles')
       +'<div class="actions-row">'+it.actions.map(a=>{
+        if(a.pdf)return '<button class="btn '+(a.type==='primary'?'btn-primary':'btn-ghost')+'" onclick="openPDF(\''+a.pdf+'\',\''+a.pdfTitle+'\')">'+icon(a.icon||'file',18)+a.label+'</button>';
         if(a.url)return '<a class="btn '+(a.type==='primary'?'btn-primary':'btn-ghost')+'" href="'+a.url+'" target="_blank" rel="noopener">'+icon(a.icon||'arrowR',18)+a.label+'</a>';
         return '<button class="btn '+(a.type==='primary'?'btn-primary':'btn-ghost')+'"'+(a.scroll?' data-scroll="'+a.scroll+'"':'')+'>'+icon(a.icon||'arrowR',18)+a.label+'</button>';
       }).join('')+'</div></div>';
@@ -1024,6 +1113,25 @@ function openModal(id){
 }
 function closeModal(){overlay.classList.remove('open');document.body.style.overflow=''}
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+
+/* PDF preview modal */
+const pdfOverlay=document.getElementById('pdfOverlay');
+const pdfFrame=document.getElementById('pdfFrame');
+const pdfTitleEl=document.getElementById('pdfTitle');
+function openPDF(path,title){
+  if(overlay.classList.contains('open'))closeModal();
+  pdfFrame.src=path;
+  pdfTitleEl.textContent=title||'Document';
+  pdfOverlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePDF(){
+  pdfOverlay.classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{pdfFrame.src=''},350);
+}
+document.getElementById('pdfClose').onclick=closePDF;
+pdfOverlay.addEventListener('click',e=>{if(e.target===pdfOverlay)closePDF()});
 
 /* card click */
 grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openModal(c.dataset.id)});
@@ -1076,7 +1184,11 @@ function closeSidebar(){sidebar.classList.remove('open');backdrop.classList.remo
 /* keyboard: / focus search, esc close */
 document.addEventListener('keydown',e=>{
   if(e.key==='/'&&document.activeElement!==searchInput){e.preventDefault();searchInput.focus()}
-  if(e.key==='Escape'){if(overlay.classList.contains('open'))closeModal();else closeSidebar()}
+  if(e.key==='Escape'){
+    if(pdfOverlay.classList.contains('open'))closePDF();
+    else if(overlay.classList.contains('open'))closeModal();
+    else closeSidebar();
+  }
 });
 
 /* count-up animation for hero numbers */
