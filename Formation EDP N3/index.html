@@ -438,7 +438,7 @@ img{max-width:100%;display:block}
       <nav class="nav" id="nav1"></nav>
       <div class="sf">
         <strong>Manuel d'utilisation du Cobot</strong><br>
-        Trame pédagogique · N1 / N2 / N3<br>
+        Formation N1 · Opérations quotidiennes<br>
         <span style="color:var(--brand);font-weight:700">260527_ET_GDP_FOR_N2</span>
       </div>
     </aside>
@@ -896,7 +896,7 @@ function renderTab1() {
   c.innerHTML = `
     <div class="page-hd">
       <h1>Former les étudiants EDP</h1>
-      <p>Support de formation à l'utilisation sécurisée de la cellule cobotique ABB. Source : Manuel d'utilisation N2 — Trame.</p>
+      <p>Contenu de formation niveau N1 — opérations quotidiennes sur la cellule cobotique ABB. Source : Manuel d'utilisation N2 — Trame.</p>
       <div class="page-hd-links">
         <button class="doc-link" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">${icon('file',15)} Manuel d'utilisation N2</button>
         <a class="doc-link" href="Docs/0605_ET_FOR_Slides_Formations_N1.pptx" download>${icon('play',15)} Télécharger les slides N1</a>
@@ -909,12 +909,6 @@ function renderTab1() {
 
     <h2 class="sect-ttl" id="nav-n1">N1 — Opérations quotidiennes</h2>
     <div class="acc-group">${buildLvlAcc('n1')}</div>
-
-    <h2 class="sect-ttl" id="nav-n2">N2 — Interventions techniques</h2>
-    <div class="acc-group">${buildLvlAcc('n2')}</div>
-
-    <h2 class="sect-ttl" id="nav-n3">N3 — Interventions avancées</h2>
-    <div class="acc-group">${buildLvlAcc('n3')}</div>
 
     <h2 class="sect-ttl" id="annexes-anchor">Annexes</h2>
     <dl class="ann-dl">${annDl}</dl>
@@ -935,7 +929,7 @@ function renderNav1() {
   const nav = document.getElementById('nav1');
   let html = `<div class="nl">Formation N1</div>`;
   html += `<button class="ni n1" data-scroll="slides-section"><span class="ic">${icon('graduation',15)}</span>Séance de formation</button>`;
-  const groups = [{key:'n1',label:'N1 — Opérations'},{key:'n2',label:'N2 — Technique'},{key:'n3',label:'N3 — Avancé'}];
+  const groups = [{key:'n1',label:'N1 — Opérations'}];
   groups.forEach(g => {
     html += `<div class="nl">${g.label}</div>`;
     CHAPTERS.filter(c=>c.lvl===g.key).forEach(ch => {
