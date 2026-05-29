@@ -450,9 +450,9 @@ img{max-width:100%;display:block}
     <aside class="sidebar" id="sidebar2">
       <nav class="nav" id="nav2"></nav>
       <div class="sf">
-        <strong>Formation N3 — Niveau Avancé</strong><br>
-        Réservé profils habilités<br>
-        <span style="color:var(--brand);font-weight:700">260529_EDP_GDP_FOR_N3</span>
+        <strong>Manuel N2 & Formation N3</strong><br>
+        Interventions techniques et avancées<br>
+        <span style="color:var(--brand);font-weight:700">N2 — N3</span>
       </div>
     </aside>
     <main class="content" id="content2"></main>
@@ -969,9 +969,24 @@ function renderTab2() {
     `<li><button class="ch-link" onclick="goToChapter('${ch.id}')">${ch.num}. ${ch.title}</button></li>`
   ).join('');
 
-  const n2Links = CHAPTERS.filter(ch=>ch.lvl==='n2').map(ch=>
-    `<li><button class="ch-link" onclick="goToChapter('${ch.id}')">${ch.num}. ${ch.title}</button></li>`
-  ).join('');
+  const n2AccHtml = CHAPTERS.filter(ch=>ch.lvl==='n2').map(ch=>`
+    <div class="acc-block" id="ch-${ch.id}">
+      <div class="acc-hd">
+        <div class="acc-icon" style="background:${LEVELS.n2.soft};color:${LEVELS.n2.color}">${icon(ch.icon,20)}</div>
+        <div style="flex:1">
+          <div class="acc-num" style="color:${LEVELS.n2.color}">Chapitre ${ch.num}</div>
+          <div class="acc-title">${ch.title}</div>
+          <div class="acc-desc">${ch.desc}</div>
+        </div>
+        <div class="acc-chev">${icon('chevDown',20)}</div>
+      </div>
+      <div class="acc-body">
+        <div class="sec-list">
+          ${ch.subs.map(s=>renderSecItem(s,LEVELS.n2.color)).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
 
   const annDl = ANNEXES.map(a=>`
     <dt>Annexe ${a.letter} — ${a.title}</dt>
@@ -981,19 +996,20 @@ function renderTab2() {
 
   c.innerHTML = `
     <div class="page-hd">
-      <h1>Se former au bras cobot ABB — Niveau N3</h1>
-      <p>Interventions avancées sur la programmation et la simulation du bras cobot. Réservé aux profils habilités. Source : 260529_EDP_GDP_FOR_Formation N3.</p>
+      <h1>Se former au fonctionnement du bras cobot</h1>
+      <p>Contenus de formation niveaux N2 (interventions techniques) et N3 (interventions avancées). Sources : Manuel d'utilisation N2 — Trame & Formation N3.</p>
       <div class="page-hd-links">
-        <button class="doc-link" onclick="openPDF('Docs/260529_EDP_GDP_FOR_Formation N3.pdf','Formation N3 — Référence PSE')">${icon('file',15)} Document source N3</button>
+        <button class="doc-link" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">${icon('file',15)} Manuel N2</button>
+        <button class="doc-link" onclick="openPDF('Docs/260529_EDP_GDP_FOR_Formation N3.pdf','Formation N3 — Référence PSE')">${icon('file',15)} Document N3</button>
       </div>
     </div>
 
-    <h2 class="sect-ttl">Prérequis — N1 &amp; N2</h2>
-    <p class="sect-sub">La maîtrise des niveaux N1 et N2 est indispensable avant les interventions N3. Cliquez sur un chapitre pour y accéder.</p>
-    <h3 class="ssect-ttl">N1 — Opérations quotidiennes</h3>
+    <h2 class="sect-ttl">Prérequis — N1</h2>
+    <p class="sect-sub">La maîtrise du niveau N1 est indispensable avant les interventions N2 et N3. Cliquez sur un chapitre pour y accéder.</p>
     <ul class="ch-list">${n1Links}</ul>
-    <h3 class="ssect-ttl">N2 — Interventions techniques</h3>
-    <ul class="ch-list">${n2Links}</ul>
+
+    <h2 class="sect-ttl" id="n2-anchor">N2 — Interventions techniques</h2>
+    <div id="accordionN2">${n2AccHtml}</div>
 
     <h2 class="sect-ttl" id="n3-anchor">N3 — Interventions avancées</h2>
     <div id="accordion"></div>
@@ -1001,6 +1017,13 @@ function renderTab2() {
     <h2 class="sect-ttl" id="ann2-anchor">Annexes</h2>
     <dl class="ann-dl">${annDl}</dl>
   `;
+
+  document.getElementById('accordionN2').addEventListener('click', e => {
+    const hd = e.target.closest('.acc-hd'); if (!hd) return;
+    const block = hd.closest('.acc-block');
+    block.classList.toggle('open');
+    hd.classList.toggle('open');
+  });
 
   const acc = document.getElementById('accordion');
   let accHtml = '';
@@ -1083,20 +1106,20 @@ function renderNav2() {
       <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
     </button>`;
   });
-  html += `<div class="nl">Prérequis N2</div>`;
+  html += `<div class="nl">N2 — Interventions techniques</div>`;
   CHAPTERS.filter(c=>c.lvl==='n2').forEach(ch => {
-    html += `<button class="ni n2" data-goch="${ch.id}">
+    html += `<button class="ni n2" data-scroll="ch-${ch.id}">
       <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
     </button>`;
   });
-  html += `<div class="nl">N3 — Interventions Avancées</div>`;
+  html += `<div class="nl">N3 — Interventions avancées</div>`;
   N3_CHAPTERS.forEach(ch => {
     html += `<button class="ni n3" data-acc="${ch.id}">
       <span class="ic">${icon(ch.icon,15)}</span>Chap. ${ch.num} — ${ch.title}
     </button>`;
   });
   html += `<div class="nl">Annexes</div>`;
-  html += `<button class="ni ax"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
+  html += `<button class="ni ax" data-scroll="ann2-anchor"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
   nav.innerHTML = html;
   nav.addEventListener('click', e => {
     const btn = e.target.closest('.ni'); if (!btn) return;
@@ -1105,11 +1128,20 @@ function renderNav2() {
     if (btn.dataset.acc) {
       const block = document.getElementById('acc-'+btn.dataset.acc);
       if (block) {
-        document.querySelectorAll('.acc-block').forEach(b=>b.classList.remove('open'));
-        document.querySelectorAll('.acc-hd').forEach(h=>h.classList.remove('open'));
+        document.querySelectorAll('#accordion .acc-block').forEach(b=>b.classList.remove('open'));
+        document.querySelectorAll('#accordion .acc-hd').forEach(h=>h.classList.remove('open'));
         block.classList.add('open');
         block.querySelector('.acc-hd').classList.add('open');
         setTimeout(()=>block.scrollIntoView({behavior:'smooth',block:'start'}),80);
+      }
+    } else if (btn.dataset.scroll) {
+      const el = document.getElementById(btn.dataset.scroll);
+      if (el) {
+        if (el.classList.contains('acc-block') && !el.classList.contains('open')) {
+          el.classList.add('open');
+          el.querySelector('.acc-hd').classList.add('open');
+        }
+        el.scrollIntoView({behavior:'smooth',block:'start'});
       }
     } else if (btn.dataset.goch) {
       goToChapter(btn.dataset.goch);
