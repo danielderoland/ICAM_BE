@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Formation N3 EDP/PSE — Icam Toulouse</title>
+<style>
+/* =========================================================================
+   FORMATION N3 EDP/PSE — Design System
+   ========================================================================= */
+:root{
+  --brand:#F39200;--brand-600:#D97E00;--brand-700:#B36C00;
+  --brand-soft:rgba(243,146,0,.12);--brand-glow:rgba(243,146,0,.35);
+  --n1:#10B981;--n1-soft:rgba(16,185,129,.12);--n1-grad:linear-gradient(135deg,#065F46,#10B981);
+  --n2:#3B82F6;--n2-soft:rgba(59,130,246,.12);--n2-grad:linear-gradient(135deg,#1E3A8A,#3B82F6);
+  --n3:#F39200;--n3-soft:rgba(243,146,0,.12);--n3-grad:linear-gradient(135deg,#B36C00,#F39200);
+  --ax:#8B5CF6;--ax-soft:rgba(139,92,246,.12);--ax-grad:linear-gradient(135deg,#4C1D95,#8B5CF6);
+  --bg:#F4F6FB;--bg1:#EEF2FA;--bg2:#F8FAFC;
+  --sur:#FFFFFF;--sur2:#F8FAFC;--sur3:#EFF3F9;
+  --brd:#E2E8F0;--brd2:#CBD5E1;
+  --txt:#0F172A;--txt2:#475569;--txt3:#94A3B8;
+  --sh-sm:0 1px 2px rgba(15,23,42,.04),0 1px 3px rgba(15,23,42,.06);
+  --sh-md:0 4px 6px rgba(15,23,42,.04),0 10px 20px rgba(15,23,42,.06);
+  --sh-lg:0 12px 24px rgba(15,23,42,.08),0 24px 48px rgba(15,23,42,.10);
+  --sh-br:0 12px 32px rgba(243,146,0,.28);
+  --r:18px;--rsm:12px;--rlg:26px;
+  --sw:272px;--th:72px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --font:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0A0F1C;--bg1:#0C1424;--bg2:#0A0F1C;
+  --sur:#111A2E;--sur2:#16213A;--sur3:#1B2842;
+  --brd:#1E2C49;--brd2:#2A3B5E;--txt:#F1F5F9;--txt2:#A6B4CC;--txt3:#64748B;
+  --brand-soft:rgba(243,146,0,.18);--n1-soft:rgba(16,185,129,.16);
+  --n2-soft:rgba(59,130,246,.16);--n3-soft:rgba(243,146,0,.18);--ax-soft:rgba(139,92,246,.16);
+  --sh-sm:0 1px 2px rgba(0,0,0,.4);--sh-md:0 6px 18px rgba(0,0,0,.45);
+  --sh-lg:0 18px 48px rgba(0,0,0,.6);--sh-br:0 12px 32px rgba(243,146,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--txt);
+  background:radial-gradient(1200px 600px at 100% -10%,var(--brand-soft),transparent 55%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;min-height:100vh;
+  -webkit-font-smoothing:antialiased;line-height:1.5;
+  transition:background .4s var(--ease),color .3s var(--ease);}
+::selection{background:var(--brand-glow);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%;display:block}
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+*::-webkit-scrollbar-track{background:transparent}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:70;height:var(--th);
+  display:flex;align-items:center;gap:16px;padding:0 26px;
+  background:color-mix(in srgb,var(--sur) 85%,transparent);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom:1px solid var(--brd);}
+.brand-logos{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-logos img{height:36px;width:auto;object-fit:contain}
+.brand-sep{width:1px;height:26px;background:var(--brd2);flex-shrink:0}
+.brand-title{display:flex;flex-direction:column;flex-shrink:0}
+.brand-title .mt{font-size:1.02rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.brand-title .st{font-size:.64rem;font-weight:700;letter-spacing:.14em;color:var(--brand);text-transform:uppercase}
+.tab-nav{display:flex;align-items:center;gap:4px;background:var(--sur2);border:1px solid var(--brd);border-radius:14px;padding:4px;margin:0 auto}
+.tb{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;
+  font-size:.86rem;font-weight:700;color:var(--txt2);transition:all .25s var(--ease);white-space:nowrap}
+.tb svg{flex-shrink:0}
+.tb:hover{background:var(--sur3);color:var(--txt)}
+.tb.active{background:var(--brand);color:#fff;box-shadow:var(--sh-br)}
+.topbar-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.icon-btn{width:42px;height:42px;border-radius:11px;background:var(--sur2);border:1px solid var(--brd);
+  display:grid;place-items:center;color:var(--txt2);transition:all .2s var(--ease)}
+.icon-btn:hover{color:var(--brand);border-color:var(--brand)}
+.moon{display:none}
+[data-theme="dark"] .sun{display:none}[data-theme="dark"] .moon{display:block}
+.menu-btn{display:none;width:42px;height:42px;border-radius:11px;background:var(--sur2);
+  border:1px solid var(--brd);align-items:center;justify-content:center;flex-shrink:0}
+
+/* ===== LAYOUT ===== */
+.app-body{display:flex;padding-top:var(--th);min-height:100vh}
+.tab-panel{display:none;flex:1;min-width:0}
+.tab-panel.active{display:flex}
+.sidebar{width:var(--sw);flex-shrink:0;position:sticky;top:var(--th);
+  height:calc(100vh - var(--th));overflow-y:auto;background:var(--sur);
+  border-right:1px solid var(--brd);display:flex;flex-direction:column}
+.nav{flex:1;overflow-y:auto;padding:14px 10px}
+.nl{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt3);padding:12px 12px 5px}
+.ni{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:10px;
+  color:var(--txt2);font-size:.86rem;font-weight:600;text-align:left;
+  transition:all .2s var(--ease);position:relative;cursor:pointer}
+.ni .ic{width:18px;height:18px;flex-shrink:0;display:grid;place-items:center;
+  color:var(--txt3);transition:color .2s}
+.ni .badge{margin-left:auto;font-size:.66rem;font-weight:700;color:var(--txt3);
+  background:var(--sur3);padding:2px 7px;border-radius:20px}
+.ni:hover{background:var(--sur2);color:var(--txt)}
+.ni:hover .ic{color:var(--brand)}
+.ni.active{background:var(--brand-soft);color:var(--brand)}
+.ni.active .ic{color:var(--brand)}
+.ni.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--brand);border-radius:0 3px 3px 0}
+.ni.n1.active{background:var(--n1-soft);color:var(--n1)}
+.ni.n1.active .ic,.ni.n1.active::before{color:var(--n1);background:var(--n1)}
+.ni.n2.active{background:var(--n2-soft);color:var(--n2)}
+.ni.n2.active .ic,.ni.n2.active::before{color:var(--n2);background:var(--n2)}
+.ni.n3.active{background:var(--n3-soft);color:var(--n3)}
+.ni.n3.active .ic,.ni.n3.active::before{color:var(--n3);background:var(--n3)}
+.ni.ax.active{background:var(--ax-soft);color:var(--ax)}
+.ni.ax.active .ic,.ni.ax.active::before{color:var(--ax);background:var(--ax)}
+.sf{padding:14px 16px;border-top:1px solid var(--brd);font-size:.7rem;color:var(--txt3);line-height:1.7}
+.sf strong{color:var(--txt2);font-weight:700}
+
+/* ===== CONTENT ===== */
+.content{flex:1;min-width:0;padding:32px 28px 70px;max-width:1260px;margin:0 auto;width:100%}
+
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;border-radius:var(--rlg);color:#fff;
+  padding:38px 42px;margin-bottom:28px;box-shadow:var(--sh-lg);isolation:isolate}
+.hero-n2{background:linear-gradient(135deg,#16233F 0%,#0F1A30 60%,#13294A 100%)}
+.hero-n3{background:linear-gradient(135deg,#3B1700 0%,#1C0900 60%,#2D1200 100%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(600px 300px at 88% -20%,rgba(243,146,0,.5),transparent 60%),
+    radial-gradient(500px 400px at 10% 120%,rgba(59,130,246,.3),transparent 55%)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;z-index:-1;
+  background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.05),transparent);
+  border-radius:50%;animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.h-badge{display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:#FFD3BC;
+  background:rgba(243,146,0,.18);border:1px solid rgba(243,146,0,.4);
+  padding:5px 12px;border-radius:30px;margin-bottom:16px}
+.h-badge .dot{width:6px;height:6px;border-radius:50%;background:#F39200;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,146,0,.7)}50%{box-shadow:0 0 0 5px transparent}}
+.hero h1{font-size:clamp(1.5rem,2.8vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.hero h1 span{background:linear-gradient(90deg,#F39200,#FAC04A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:560px;color:#C7D2E8;font-size:.95rem;line-height:1.65}
+.h-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.h-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:6px 12px;
+  font-size:.78rem;font-weight:600;color:rgba(255,255,255,.9);backdrop-filter:blur(4px)}
+.h-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hbtn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:11px;
+  font-size:.86rem;font-weight:700;transition:all .22s var(--ease);cursor:pointer;border:none;font-family:var(--font)}
+.hbtn-g{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.hbtn-g:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.hbtn-p{background:#F39200;color:#fff;box-shadow:0 6px 20px rgba(243,146,0,.4)}
+.hbtn-p:hover{background:#D97E00;transform:translateY(-2px)}
+
+/* ===== FILTERS ===== */
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.fc{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:30px;
+  font-size:.82rem;font-weight:600;background:var(--sur);border:1px solid var(--brd);
+  color:var(--txt2);transition:all .2s var(--ease);cursor:pointer}
+.fc:hover{border-color:var(--brd2);transform:translateY(-1px)}
+.fc.active{color:#fff;border-color:transparent;box-shadow:var(--sh-md)}
+.fc.active[data-lvl="all"]{background:linear-gradient(135deg,#1E293B,#334155)}
+.fc.active[data-lvl="n1"]{background:var(--n1)}
+.fc.active[data-lvl="n2"]{background:var(--n2)}
+.fc.active[data-lvl="n3"]{background:var(--n3)}
+.fc.active[data-lvl="ax"]{background:var(--ax)}
+.fc .dot{width:7px;height:7px;border-radius:50%;background:var(--txt3)}
+.fc[data-lvl="n1"] .dot{background:var(--n1)}.fc[data-lvl="n2"] .dot{background:var(--n2)}
+.fc[data-lvl="n3"] .dot{background:var(--n3)}.fc[data-lvl="ax"] .dot{background:var(--ax)}
+.fc.active .dot{background:#fff!important}
+
+/* ===== CHAPTER CARDS ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);
+  padding:20px;cursor:pointer;overflow:hidden;position:relative;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+  display:flex;flex-direction:column;animation:ci .45s var(--ease) backwards}
+@keyframes ci{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card::after{content:"";position:absolute;left:0;top:0;height:100%;width:4px;
+  background:var(--ca);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease)}
+.card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:var(--ca)}
+.card:hover::after{transform:scaleY(1)}
+.card[data-lvl="n1"]{--ca:var(--n1);--cas:var(--n1-soft)}
+.card[data-lvl="n2"]{--ca:var(--n2);--cas:var(--n2-soft)}
+.card[data-lvl="n3"]{--ca:var(--n3);--cas:var(--n3-soft)}
+.card[data-lvl="ax"]{--ca:var(--ax);--cas:var(--ax-soft)}
+.card-hd{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.card-ic{width:46px;height:46px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;
+  color:var(--ca);background:var(--cas);transition:transform .3s var(--ease)}
+.card:hover .card-ic{transform:scale(1.1) rotate(-4deg)}
+.card-num{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ca);margin-bottom:2px}
+.card-title{font-size:.98rem;font-weight:750;letter-spacing:-.01em;line-height:1.25;color:var(--txt)}
+.lvl-badge{position:absolute;top:16px;right:16px;font-size:.62rem;font-weight:700;
+  padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;
+  color:#fff;background:var(--ca)}
+.card-desc{color:var(--txt2);font-size:.86rem;line-height:1.55;flex:1}
+.card-ft{display:flex;align-items:center;gap:7px;margin-top:14px;flex-wrap:wrap}
+.mini-tag{font-size:.68rem;font-weight:600;color:var(--txt2);background:var(--sur2);
+  border:1px solid var(--brd);padding:3px 8px;border-radius:7px}
+.cta{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:.78rem;
+  font-weight:700;color:var(--ca);transition:gap .2s}
+.card:hover .cta{gap:8px}
+.empty-st{display:none;text-align:center;padding:60px 20px;color:var(--txt3)}
+.empty-st svg{margin-bottom:12px;opacity:.5}
+.empty-st h3{color:var(--txt2);font-weight:700;margin-bottom:5px}
+
+/* ===== ACCORDION (Tab 2) ===== */
+.acc-block{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);
+  overflow:hidden;margin-bottom:14px;transition:box-shadow .3s}
+.acc-block:hover{box-shadow:var(--sh-md)}
+.acc-hd{display:flex;align-items:center;gap:14px;padding:20px 22px;cursor:pointer;
+  transition:background .2s;user-select:none}
+.acc-hd:hover{background:var(--sur2)}
+.acc-hd.open{background:var(--sur2);border-bottom:1px solid var(--brd)}
+.acc-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex-shrink:0}
+.acc-num{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.acc-title{font-size:1.02rem;font-weight:750;color:var(--txt)}
+.acc-desc{font-size:.84rem;color:var(--txt2);margin-top:2px}
+.acc-chev{color:var(--txt3);transition:transform .3s var(--ease);flex-shrink:0;margin-left:auto}
+.acc-block.open .acc-chev{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.acc-block.open .acc-body{max-height:5000px}
+.sec-list{padding:18px 22px;display:grid;gap:12px}
+.sec-item{background:var(--sur2);border:1px solid var(--brd);border-radius:var(--rsm);padding:16px 18px}
+.sec-item-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sec-num{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-size:.76rem;font-weight:800;color:#fff;flex-shrink:0}
+.sec-title{font-size:.96rem;font-weight:700;color:var(--txt)}
+.sec-obj{font-size:.86rem;color:var(--txt2);font-style:italic;line-height:1.55;
+  margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--brd)}
+.sec-obj strong{color:var(--txt);font-style:normal;font-weight:700}
+.sec-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:8px}
+.sec-col{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:12px 14px}
+.sec-col-ttl{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--txt3);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.sec-col ul{list-style:none;display:grid;gap:5px}
+.sec-col li{font-size:.84rem;color:var(--txt2);display:flex;gap:7px;align-items:flex-start;line-height:1.45}
+.sec-col li::before{content:"›";font-weight:700;flex-shrink:0;margin-top:1px}
+.n1-li::before{color:var(--n1)}.n2-li::before{color:var(--n2)}
+.n3-li::before{color:var(--n3)}.ax-li::before{color:var(--ax)}
+
+/* ===== N3 INTRO CARD ===== */
+.intro-card{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);
+  padding:22px 26px;margin-bottom:22px;display:flex;gap:18px;align-items:flex-start}
+.intro-ic{width:52px;height:52px;border-radius:14px;background:var(--n3-soft);color:var(--n3);
+  display:grid;place-items:center;flex-shrink:0}
+.intro-body h3{font-size:1.1rem;font-weight:800;margin-bottom:6px}
+.intro-body p{color:var(--txt2);font-size:.9rem;line-height:1.6}
+.intro-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.istat{background:var(--sur2);border:1px solid var(--brd);border-radius:11px;padding:10px 16px;min-width:100px}
+.istat .n{font-size:1.5rem;font-weight:800;color:var(--n3);line-height:1}
+.istat .l{font-size:.72rem;color:var(--txt3);margin-top:3px;font-weight:600}
+
+/* ===== ANNEXES ===== */
+.ann-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.ann-card{background:var(--sur);border:1px solid var(--brd);border-radius:var(--rsm);
+  padding:16px 18px;transition:all .25s var(--ease)}
+.ann-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--ax)}
+.ann-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.ann-letter{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;
+  background:var(--ax-soft);color:var(--ax);font-size:.95rem;font-weight:800;flex-shrink:0}
+.ann-title{font-size:.93rem;font-weight:700;color:var(--txt)}
+.ann-desc{font-size:.82rem;color:var(--txt2);line-height:1.5}
+.ann-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.ann-tag{font-size:.7rem;font-weight:600;background:var(--sur2);border:1px solid var(--brd);
+  padding:2px 8px;border-radius:6px;color:var(--txt2)}
+
+/* ===== MODAL ===== */
+.modal-ov{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:rgba(8,12,22,.6);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:20px}
+.modal-ov.open{opacity:1;visibility:visible}
+.modal{background:var(--sur);width:100%;max-width:700px;max-height:90vh;overflow-y:auto;
+  border-radius:22px;box-shadow:var(--sh-lg);
+  transform:translateY(20px) scale(.97);opacity:0;transition:transform .4s var(--ease),opacity .3s}
+.modal-ov.open .modal{transform:none;opacity:1}
+.m-banner{position:relative;padding:26px 30px 22px;color:#fff;overflow:hidden}
+.m-banner::before{content:"";position:absolute;inset:0;z-index:0;background:var(--mb)}
+.m-banner::after{content:"";position:absolute;right:-30px;bottom:-50px;width:180px;height:180px;z-index:0;
+  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);border-radius:50%}
+.m-banner>*{position:relative;z-index:1}
+.m-close{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:9px;
+  background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;transition:all .2s}
+.m-close:hover{background:rgba(255,255,255,.28);transform:rotate(90deg)}
+.m-ic{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.16);
+  display:grid;place-items:center;margin-bottom:12px}
+.m-lvl{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:5px}
+.m-banner h2{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.m-banner .sub{margin-top:8px;color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.55}
+.m-body{padding:24px 30px 28px}
+.mb-s{margin-bottom:22px}
+.mb-s:last-child{margin-bottom:0}
+.mb-ttl{display:flex;align-items:center;gap:7px;font-size:.7rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:10px}
+.mb-ttl svg{color:var(--acc,var(--brand))}
+.mb-text{color:var(--txt2);font-size:.92rem;line-height:1.65}
+.mb-list{list-style:none;display:grid;gap:8px}
+.mb-list li{display:flex;gap:9px;align-items:flex-start;color:var(--txt);font-size:.9rem;line-height:1.5;
+  background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:10px 12px}
+.mb-list li svg{flex-shrink:0;margin-top:1px;color:var(--acc,var(--brand))}
+.mb-kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}
+.mb-kv .kv{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:11px 13px}
+.mb-kv .kv .k{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+.mb-kv .kv .v{font-size:.88rem;font-weight:600;color:var(--txt)}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:11px;
+  font-size:.86rem;font-weight:700;transition:all .22s var(--ease);cursor:pointer;font-family:var(--font);border:none}
+.btn-p{background:var(--brand);color:#fff;box-shadow:var(--sh-br)}
+.btn-p:hover{background:var(--brand-600);transform:translateY(-2px)}
+.btn-g{background:var(--sur2);color:var(--txt);border:1px solid var(--brd)}
+.btn-g:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+
+/* ===== PDF VIEWER ===== */
+.pdf-ov{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;
+  background:rgba(8,12,22,.65);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:18px}
+.pdf-ov.open{opacity:1;visibility:visible}
+.pdf-modal{background:var(--sur);width:100%;max-width:920px;height:90vh;border-radius:18px;
+  box-shadow:var(--sh-lg);display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(16px) scale(.97);opacity:0;transition:transform .4s var(--ease),opacity .3s}
+.pdf-ov.open .pdf-modal{transform:none;opacity:1}
+.pdf-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 20px;border-bottom:1px solid var(--brd);flex-shrink:0}
+.pdf-ttl{font-size:.93rem;font-weight:700}
+.pdf-close{width:35px;height:35px;border-radius:9px;background:var(--sur2);border:1px solid var(--brd);
+  display:grid;place-items:center;color:var(--txt2);transition:all .2s}
+.pdf-close:hover{background:var(--brand-soft);color:var(--brand);border-color:var(--brand)}
+.pdf-body{flex:1;overflow:hidden;background:var(--sur2)}
+.pdf-frame{width:100%;height:100%;border:none;display:block}
+
+/* ===== SECTION TITLE ===== */
+.sect-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px;margin-top:28px}
+.sect-hd:first-child{margin-top:0}
+.sect-hd h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.sect-hd .lv-pill{font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;
+  color:#fff;text-transform:uppercase;letter-spacing:.06em}
+.lv-n1{background:var(--n1)}.lv-n2{background:var(--n2)}.lv-n3{background:var(--n3)}.lv-ax{background:var(--ax)}
+
+/* ===== BACKDROP ===== */
+.backdrop{position:fixed;inset:0;background:rgba(8,12,22,.5);z-index:65;opacity:0;visibility:hidden;transition:.3s}
+.backdrop.show{opacity:1;visibility:visible}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1040px){
+  :root{--sw:260px}
+  .sidebar{position:fixed;top:var(--th);left:0;bottom:0;z-index:60;
+    transform:translateX(-100%);transition:transform .35s var(--ease)}
+  .sidebar.open{transform:none;box-shadow:var(--sh-lg)}
+  .tab-panel.active{flex-direction:column}
+  .content{padding:22px 18px 60px}
+  .menu-btn{display:flex}
+}
+@media(max-width:680px){
+  .topbar{padding:0 14px;gap:10px}
+  .tab-nav{display:none}
+  .brand-title{display:none}
+  .hero{padding:24px 20px}
+  .content{padding:16px 12px 50px}
+  .m-body{padding:16px 18px 22px}
+  .m-banner{padding:20px 22px 16px}
+  .grid{grid-template-columns:1fr}
+  .mobile-tabs{display:flex!important}
+  body{padding-bottom:64px}
+}
+.mobile-tabs{display:none;position:fixed;bottom:0;left:0;right:0;z-index:80;
+  background:var(--sur);border-top:1px solid var(--brd);padding:6px 8px;gap:6px}
+.mobile-tabs .tb{flex:1;flex-direction:column;gap:3px;padding:7px 6px;font-size:.72rem;
+  border-radius:10px;text-align:center;justify-content:center}
+.mobile-tabs .tb svg{margin:0 auto}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Backdrop -->
+<div class="backdrop" id="backdrop"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">${icon('menu')}</button>
+  <div class="brand-logos">
+    <img src="Images/ICAM.png" alt="Icam" />
+    <div class="brand-sep"></div>
+    <img src="Images/Ecole de production .png" alt="École de Production" />
+  </div>
+  <div class="brand-title">
+    <span class="mt">Formation N3 EDP/PSE</span>
+    <span class="st">Bras Cobot ABB · Icam Toulouse</span>
+  </div>
+  <nav class="tab-nav" id="tabNav">
+    <button class="tb active" data-tab="1">${icon('graduation',17)} Former les étudiants EDP</button>
+    <button class="tb" data-tab="2">${icon('robot',17)} Se former au bras cobot</button>
+  </nav>
+  <div class="topbar-right">
+    <button class="icon-btn" id="themeBtn" title="Thème">
+      <span class="sun">${icon('sun')}</span><span class="moon">${icon('moon')}</span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE TABS -->
+<div class="mobile-tabs" id="mobileTabs">
+  <button class="tb active" data-tab="1">${icon('graduation',20)}<span>Former</span></button>
+  <button class="tb" data-tab="2">${icon('robot',20)}<span>Se former</span></button>
+</div>
+
+<!-- APP BODY -->
+<div class="app-body">
+
+  <!-- ========== TAB 1 : FORMER LES ÉTUDIANTS EDP ========== -->
+  <div class="tab-panel active" id="panel1">
+    <aside class="sidebar" id="sidebar1">
+      <nav class="nav" id="nav1"></nav>
+      <div class="sf">
+        <strong>Manuel d'utilisation du Cobot</strong><br>
+        Trame pédagogique · N1 / N2 / N3<br>
+        <span style="color:var(--brand);font-weight:700">260527_ET_GDP_FOR_N2</span>
+      </div>
+    </aside>
+    <main class="content" id="content1"></main>
+  </div>
+
+  <!-- ========== TAB 2 : SE FORMER AU BRAS COBOT ========== -->
+  <div class="tab-panel" id="panel2">
+    <aside class="sidebar" id="sidebar2">
+      <nav class="nav" id="nav2"></nav>
+      <div class="sf">
+        <strong>Formation N3 — Niveau Avancé</strong><br>
+        Réservé profils habilités<br>
+        <span style="color:var(--brand);font-weight:700">260529_EDP_GDP_FOR_N3</span>
+      </div>
+    </aside>
+    <main class="content" id="content2"></main>
+  </div>
+
+</div>
+
+<!-- CHAPTER MODAL -->
+<div class="modal-ov" id="modalOv">
+  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<!-- PDF VIEWER -->
+<div class="pdf-ov" id="pdfOv" role="dialog" aria-modal="true">
+  <div class="pdf-modal">
+    <div class="pdf-hd">
+      <span class="pdf-ttl" id="pdfTitle">Document</span>
+      <button class="pdf-close" id="pdfClose">${icon('x',15)}</button>
+    </div>
+    <div class="pdf-body">
+      <iframe class="pdf-frame" id="pdfFrame" src="" title="Aperçu PDF"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   ICONS
+   ========================================================================= */
+function icon(n,s){
+  s=s||22;
+  const a=`width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
+  const P={
+    menu:'<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+    x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    arrowR:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+    check:'<polyline points="20 6 9 17 4 12"/>',
+    graduation:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    robot:'<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M9 11V7a3 3 0 0 1 6 0v4"/><circle cx="12" cy="5" r="2"/><circle cx="8.5" cy="16" r="1" fill="currentColor"/><circle cx="15.5" cy="16" r="1" fill="currentColor"/><path d="M10 19h4"/>',
+    clipboard:'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>',
+    eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+    monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    tag:'<path d="M20.6 8.3L14.7 2.4A2 2 0 0 0 13.3 2H6a2 2 0 0 0-2 2v7.3a2 2 0 0 0 .6 1.4l5.9 5.9a2 2 0 0 0 2.8 0l7.3-7.3a2 2 0 0 0 0-2.8z"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>',
+    play:'<polygon points="6 4 20 12 6 20 6 4"/>',
+    fileText:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
+    zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    wifi:'<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>',
+    tablet:'<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',
+    hand:'<path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2L4 19"/>',
+    crosshair:'<circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>',
+    bug:'<path d="M8 2l1.5 1.5"/><path d="M14.5 3.5L16 2"/><path d="M9 9h6"/><path d="M9 13h3"/><path d="M12 20a8 4 0 0 0 8-4V9.88a2 2 0 0 0-.49-1.31l-3.02-3.14A2 2 0 0 0 15 5H9a2 2 0 0 0-1.49.43L4.49 8.57A2 2 0 0 0 4 9.88V16a8 4 0 0 0 8 4z"/><path d="M4 13H2"/><path d="M22 13h-2"/><path d="M4 9l-2-1"/><path d="M22 8l-2 1"/>',
+    code:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+    gitBranch:'<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+    edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>',
+    cpu:'<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
+    box:'<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
+    shieldCheck:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
+    layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+    book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+    users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    info:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+    chevDown:'<polyline points="6 9 12 15 18 9"/>',
+    alert:'<path d="M10.3 3.3L2 20h18L11.7 3.3a2 2 0 0 0-1.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    tool:'<path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L3 18v3h3l6.1-6.1a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1z"/>',
+    settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+    target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    terminal:'<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
+    sliders:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+    activity:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+    searchX:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="9" y1="9" x2="13" y2="13"/><line x1="13" y1="9" x2="9" y2="13"/>',
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    bulb:'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/>',
+    link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"/>',
+    pin:'<path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    flag:'<path d="M4 22V4a1 1 0 0 1 .4-.8c2-1.5 4.6-1.5 6.6 0s4.6 1.5 6.6 0L20 2v12l-2.4 1.2c-2 1.5-4.6 1.5-6.6 0s-4.6-1.5-6.6 0"/>',
+    clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  };
+  return `<svg ${a}>${P[n]||''}</svg>`;
+}
+
+// Replace ${icon('name',size)} placeholders
+document.body.innerHTML = document.body.innerHTML.replace(
+  /\$\{icon\('([^']+)'(?:,\s*(\d+))?\)\}/g,
+  (_,n,sz) => icon(n, sz ? parseInt(sz) : undefined)
+);
+
+/* =========================================================================
+   DATA — TAB 1 CHAPTERS (Manuel N2 — Trame complète)
+   ========================================================================= */
+const LEVELS = {
+  n1:{label:'Niveau 1',full:'N1 — Opérations Quotidiennes',color:'var(--n1)',grad:'var(--n1-grad)',soft:'var(--n1-soft)'},
+  n2:{label:'Niveau 2',full:'N2 — Interventions Techniques',color:'var(--n2)',grad:'var(--n2-grad)',soft:'var(--n2-soft)'},
+  n3:{label:'Niveau 3',full:'N3 — Interventions Avancées',color:'var(--n3)',grad:'var(--n3-grad)',soft:'var(--n3-soft)'},
+  ax:{label:'Annexes',full:'Annexes A–G',color:'var(--ax)',grad:'var(--ax-grad)',soft:'var(--ax-soft)'},
+};
+
+const CHAPTERS = [
+  {id:'ch1',lvl:'n1',num:1,icon:'clipboard',
+   title:'Conditions initiales avant lancement',
+   desc:'Check-list complète des conditions à vérifier avant de démarrer tout cycle — position repos, outils MAZAK, portes, pièces.',
+   tags:['Check-list','Sécurité'],
+   objective:'Garantir que la cellule est dans un état conforme avant de démarrer un cycle.',
+   elements:['Check-list complète des conditions initiales','Ordre de vérification recommandé'],
+   visuals:['Check-list imprimable détachable'],
+   subs:[
+     {num:'1.1',title:'Position du cobot en mode repos',obj:'Identifier visuellement la position de repos du bras cobot.',items:['Description de la position de repos','Critères visuels d\'identification'],visuals:['Photo du cobot en position repos (vue de face et de côté)']},
+     {num:'1.2',title:'Vérification des outils MAZAK',obj:'Confirmer la présence et l\'état des outils sur la machine MAZAK.',items:['Liste des outils attendus selon le programme','Points de contrôle visuels']},
+     {num:'1.3',title:'Porte CARTER fermée',obj:'Vérifier que la porte du carter est correctement fermée avant cycle.',items:['Indicateur de fermeture (capteur, voyant)','Action en cas de porte ouverte']},
+     {num:'1.4',title:'Tiroir fermé',obj:'Confirmer la fermeture du tiroir.',items:['Position correcte du tiroir']},
+     {num:'1.5',title:'Pièce brute en butée',obj:'Vérifier le bon positionnement de la pièce brute.',items:['Définition de la butée correcte','Conséquences d\'un mauvais positionnement'],visuals:['Photo annotée d\'une pièce correctement positionnée','Photo d\'un cas non conforme à éviter']},
+     {num:'1.6',title:'Cellule libre — pas d\'objet parasite',obj:'S\'assurer qu\'aucun objet n\'encombre la cellule ou la base du cobot.',items:['Définition des zones à inspecter','Conduite à tenir en cas d\'objet détecté'],visuals:['Plan des zones à inspecter']},
+     {num:'1.7',title:'Fiche de poste',obj:'Utiliser la fiche de poste comme référence au lancement.',items:['Contenu de la fiche de poste','Usage en production']}
+   ]},
+  {id:'ch2',lvl:'n1',num:2,icon:'eye',
+   title:'Contrôle visuel',
+   desc:'Points de contrôle visuel aux trois phases clés : lancement, pendant la production, et en fin de cycle.',
+   tags:['Voyants','Surveillance'],
+   objective:'Savoir identifier visuellement l\'état de la cellule à chaque phase du cycle.',
+   elements:['Voyants à observer au lancement','Signification lumière ORANGE (normal) et ROUGE (anomalie)','État attendu en fin de cycle'],
+   visuals:['Photo colonne lumineuse avec légende','Tableau couleur / état / action','Photo cellule en fin de cycle conforme'],
+   subs:[
+     {num:'2.1',title:'Au lancement du cycle',obj:'Identifier les points à contrôler visuellement au démarrage.',items:['Voyants à observer','État de l\'IHM au démarrage','Bruits / mouvements attendus'],visuals:['Photo annotée du panneau de commande au démarrage']},
+     {num:'2.2',title:'Pendant le cycle',obj:'Donner les repères visuels permettant de suivre un cycle en cours.',items:['Lumière ORANGE = fonctionnement normal','Lumière ROUGE = anomalie → voir code erreur IHM','Autres voyants éventuels'],visuals:['Photo colonne lumineuse avec légende des couleurs','Tableau couleur / état / action']},
+     {num:'2.3',title:'En fin de cycle',obj:'Décrire l\'état attendu de la cellule à la fin du cycle.',items:['Position du cobot en fin de cycle','Indicateurs de fin de cycle sur IHM','Avant déchargement : vérifications visuelles'],visuals:['Photo cellule en fin de cycle conforme']}
+   ]},
+  {id:'ch3',lvl:'n1',num:3,icon:'monitor',
+   title:'Interface Homme-Machine (IHM)',
+   desc:'Présentation de l\'IHM, lancement des modules, règle d\'or dBrut = dIHM = dProgramme MAZAK, et lecture des codes erreurs.',
+   tags:['IHM','MAZAK','Codes erreurs'],
+   objective:'Comprendre et utiliser l\'IHM pour lancer, surveiller et diagnostiquer les cycles.',
+   elements:['Zones de l\'écran (état machine, programme, alarmes, contrôles)','Boutons principaux et leur rôle','Actions bloquées par mot de passe','Procédure de lancement pas-à-pas'],
+   visuals:['Capture d\'écran annotée IHM principale','Légende numérotée des zones','Capture d\'un code erreur affiché'],
+   subs:[
+     {num:'3.1',title:'Présentation générale de l\'IHM',obj:'Décrire l\'écran principal et ses zones fonctionnelles.',items:['Zones de l\'écran (état machine, programme, alarmes, contrôles)','Boutons principaux et leur rôle','Actions bloquées par mot de passe'],visuals:['Capture d\'écran annotée de l\'IHM principale','Légende numérotée des zones']},
+     {num:'3.2',title:'Lancement d\'un module IHM',obj:'Décrire la procédure pas-à-pas pour lancer un module.',items:['Étape 1 : Chargement d\'un brut','Étape 2 : Lancement du module IHM','Étape 3 : Fin de production / déchargement','Sécurités logicielles entre étapes']},
+     {num:'3.3',title:'Correspondance brut / IHM / programme MAZAK',obj:'Faire comprendre la règle d\'or : dBrut = dIHM = dProgramme MAZAK.',items:['Définition de la désignation du brut (dBrut)','Définition de la désignation IHM (dIHM)','Définition de la désignation programme MAZAK','Conséquences d\'une incohérence'],visuals:[]},
+     {num:'3.4',title:'Lecture des codes erreurs sur IHM',obj:'Permettre une lecture rapide et une première interprétation des erreurs.',items:['Emplacement des codes erreurs sur l\'écran','Format des codes erreurs','Renvoi vers le tableau récapitulatif (Annexe B)'],visuals:['Capture d\'écran d\'un code erreur affiché','Mini-tableau des codes les plus fréquents']}
+   ]},
+  {id:'ch4',lvl:'n1',num:4,icon:'tag',
+   title:'Identification des pièces (étiquetage)',
+   desc:'Système d\'identification EnBn — logique Étage + Broche, de E1B1 à E5B3, avec règles de saisie et plan d\'étiquetage.',
+   tags:['EnBn','E1B1→E5B3'],
+   objective:'Comprendre le système d\'identification des emplacements et pièces de la cellule.',
+   elements:['Logique E (étage) + B (broche / emplacement)','Plage utilisée : E1B1 → E5B3','Règles de saisie / d\'affichage'],
+   visuals:['Plan d\'étiquetage de la cellule'],
+   subs:[
+     {num:'4.1',title:'Système d\'identification (EnBn)',obj:'Présenter la logique de nommage des emplacements et pièces.',items:['Logique E (étage) + B (broche / emplacement)','Plage utilisée : E1B1 → E5B3','Règles de saisie / d\'affichage']},
+     {num:'4.2',title:'Plan d\'étiquetage de la cellule',obj:'Visualiser l\'emplacement de chaque étiquette sur la cellule.',items:['Correspondance position physique / code EnBn','Points critiques d\'étiquetage'],visuals:['Plan annoté de la cellule']}
+   ]},
+  {id:'ch5',lvl:'n1',num:5,icon:'play',
+   title:'Lancement et déroulement d\'un cycle',
+   desc:'Procédure complète : chargement du brut, lancement du programme, surveillance pendant production et déchargement.',
+   tags:['Cycle','Production','Déchargement'],
+   objective:'Maîtriser la procédure complète de lancement et de fin de cycle en autonomie.',
+   elements:['Préparation et positionnement du brut','Sélection du programme sur IHM','Vérifications croisées (dBrut = dIHM = dProgramme MAZAK)','Signaux sonores / lumineux à observer','Procédure de déchargement'],
+   visuals:['Capture écran de l\'écran de lancement'],
+   subs:[
+     {num:'5.1',title:'Chargement d\'un brut',obj:'Décrire la procédure de chargement.',items:['Préparation du brut','Positionnement','Validation']},
+     {num:'5.2',title:'Lancement du programme',obj:'Procédure de lancement validée.',items:['Sélection du programme sur IHM','Vérifications croisées (dBrut = dIHM = dProgramme MAZAK)','Validation du lancement'],visuals:['Capture écran de l\'écran de lancement']},
+     {num:'5.3',title:'Surveillance pendant production',obj:'Préciser ce qu\'il faut surveiller pendant le cycle.',items:['Indicateurs IHM à observer','Signaux sonores / lumineux','Fréquence des contrôles']},
+     {num:'5.4',title:'Fin de production et déchargement',obj:'Procédure de déchargement.',items:['Signal de fin de cycle','Conditions pour ouvrir la cellule','Procédure de déchargement']}
+   ]},
+  {id:'ch6',lvl:'n1',num:6,icon:'fileText',
+   title:'Rapport de fin de cycle',
+   desc:'Lecture autonome du rapport de fin de cycle — champs essentiels, cas d\'analyse (cycle OK, dégradé, interrompu).',
+   tags:['Rapport','Analyse'],
+   objective:'Permettre la lecture autonome du rapport de fin de cycle sur l\'IHM.',
+   elements:['Format du rapport','Champs essentiels','Cas d\'analyse : cycle OK, cycle dégradé, cycle interrompu'],
+   visuals:['Exemple de rapport annoté','Capture écran rapport sur IHM'],
+   subs:[
+     {num:'6.1',title:'Lecture du rapport',obj:'Permettre la lecture autonome du rapport de fin de cycle.',items:['Format du rapport','Champs essentiels','Cas d\'analyse (cycle OK, cycle dégradé, cycle interrompu)'],visuals:['Exemple de rapport annoté','Capture écran rapport sur IHM']},
+     {num:'6.2',title:'Codes erreurs et signification',obj:'Identifier rapidement la signification des codes erreurs.',items:['Tableau des codes les plus fréquents','Cause probable','Renvoi vers Annexe B']}
+   ]},
+  {id:'ch7',lvl:'n2',num:7,icon:'zap',
+   title:'Armoire électrique',
+   desc:'Vérification structurelle, contrôle des connexions, lecture du schéma électrique et BOM (Bill of Materials) pour la maintenance.',
+   tags:['Électrique','BOM','Schéma'],
+   objective:'Connaître, contrôler et maintenir l\'armoire électrique de la cellule.',
+   elements:['Points de contrôle visuels (vis, fixations, propreté)','Connexions critiques et signes d\'anomalie','Schéma électrique complet avec légende','BOM : liste des composants, références, fournisseurs'],
+   visuals:['Schéma électrique pleine page','Tableau BOM imprimé','Photos des connecteurs principaux'],
+   subs:[
+     {num:'7.1',title:'Vérification structurelle de l\'armoire',obj:'Définir les contrôles visuels et structurels périodiques.',items:['Points de contrôle visuels (vis, fixations, propreté)','Périodicité des contrôles','Critères d\'alerte','Notice de montage de l\'armoire']},
+     {num:'7.2',title:'Contrôle des connexions électriques',obj:'Vérifier l\'intégrité des connexions sans intervention électrique.',items:['Connexions critiques (liste)','Signes d\'usure / d\'anomalie','Procédure de signalement'],visuals:['Photos des connecteurs principaux'],technical:['Repérage des bornes selon le schéma électrique']},
+     {num:'7.3',title:'Schéma électrique',obj:'Permettre une lecture autonome du schéma électrique.',items:['Schéma électrique complet','Légende des symboles','Repérage des sections (alimentation, commande, sécurité, communication)','Points clés pour le diagnostic'],visuals:['Schéma électrique pleine page (format pliable)','Schémas zoomés par section'],technical:['Tensions de référence','Repères des borniers']},
+     {num:'7.4',title:'Fonctionnement général de l\'armoire',obj:'Comprendre l\'architecture électrique de la cellule.',items:['Alimentation principale','Circuits de commande','Circuits de sécurité']},
+     {num:'7.5',title:'BOM (Bill of Materials)',obj:'Identifier chaque composant et ses références pour le remplacement.',items:['Liste complète des composants','Références fabricant','Fournisseur / délai d\'approvisionnement'],visuals:['Tableau BOM imprimé']}
+   ]},
+  {id:'ch8',lvl:'n2',num:8,icon:'wifi',
+   title:'Vérification de la communication',
+   desc:'Diagnostic de la chaîne complète : capteurs → automate → IHM → actionneurs. Méthode et indicateurs de défaut.',
+   tags:['Capteurs','Actionneurs','Diagnostic'],
+   objective:'Diagnostiquer la chaîne capteurs / actionneurs / IHM en cas de défaut de communication.',
+   elements:['Liste des capteurs et leur fonction','Liste des actionneurs et leur fonction','Méthode de vérification de la communication','Indicateurs d\'un défaut de communication'],
+   visuals:['Schéma de la chaîne capteurs → automate → IHM → actionneurs','Tableau de correspondance capteur / signal / actionneur'],
+   subs:[
+     {num:'8.1',title:'Vérification de la communication',obj:'Diagnostiquer la chaîne capteurs / actionneurs / IHM.',items:['Liste des capteurs et leur fonction','Liste des actionneurs et leur fonction','Méthode de vérification','Indicateurs d\'un défaut de communication'],visuals:['Schéma de la chaîne complète','Tableau de correspondance'],technical:['Diagnostic IHM pour communication','Points de test']}
+   ]},
+  {id:'ch9',lvl:'n2',num:9,icon:'tablet',
+   title:'Flexpendant (Tablette)',
+   desc:'Présentation et maîtrise de la tablette ABB Flexpendant — boutons physiques, navigation, sélection des modes.',
+   tags:['Flexpendant','ABB','Navigation'],
+   objective:'Maîtriser la tablette de contrôle du robot ABB pour les interventions techniques.',
+   elements:['Vue d\'ensemble du Flexpendant','Boutons physiques importants (arrêt d\'urgence, dead-man, etc.)','Accès aux menus principaux','Sélection du mode (automatique / manuel)'],
+   visuals:['Photo annotée du Flexpendant','Captures écrans des menus principaux'],
+   subs:[
+     {num:'9.1',title:'Présentation du Flexpendant',obj:'Décrire la tablette et ses fonctions clés.',items:['Vue d\'ensemble du Flexpendant','Boutons physiques importants (arrêt d\'urgence, dead-man, etc.)','Écran et zones'],visuals:['Photo annotée du Flexpendant']},
+     {num:'9.2',title:'Maîtrise du Flexpendant — navigation',obj:'Naviguer dans les menus essentiels du Flexpendant.',items:['Accès aux menus principaux','Sélection du mode (automatique / manuel)','Lecture des messages'],visuals:['Captures écrans des menus principaux']}
+   ]},
+  {id:'ch10',lvl:'n2',num:10,icon:'hand',
+   title:'Mode Manuel',
+   desc:'Utilisation sécurisée du mode manuel — préhenseur, soufflette, porte, mandrins, arrêts d\'urgence et séance d\'essais.',
+   tags:['Manuel','Sécurité','Préhenseur'],
+   objective:'Encadrer l\'utilisation du mode manuel en toute sécurité pour les interventions techniques.',
+   elements:['Conditions pour passer en mode manuel','Précautions générales','Activation préhenseur, soufflette, porte, mandrins','Emplacement et déverrouillage des arrêts d\'urgence'],
+   visuals:['Photo de la bascule mode auto → manuel','Plan des arrêts d\'urgence'],
+   subs:[
+     {num:'10.1',title:'Activation / désactivation du préhenseur (manuel)',obj:'Activer ou désactiver le préhenseur manuellement.',items:['Procédure pas-à-pas','Sécurités']},
+     {num:'10.2',title:'Soufflette (manuel)',obj:'Commander la soufflette en mode manuel.',items:['Procédure pas-à-pas']},
+     {num:'10.3',title:'Porte (ouverture / fermeture)',obj:'Commander la porte en mode manuel.',items:['Procédure pas-à-pas','Conditions préalables']},
+     {num:'10.4',title:'Mandrins (ouverture / fermeture)',obj:'Commander les mandrins en mode manuel.',items:['Procédure pas-à-pas','Sécurités à respecter']},
+     {num:'10.5',title:'Cycle machine (commande manuelle)',obj:'Lancer/arrêter le cycle machine en mode manuel.',items:['Procédure pas-à-pas']},
+     {num:'10.6',title:'Arrêts d\'urgence',obj:'Connaître l\'emplacement et l\'effet des arrêts d\'urgence.',items:['Emplacement de tous les arrêts d\'urgence','Effet immédiat de l\'activation','Procédure de déverrouillage'],visuals:['Plan de la cellule avec emplacement des arrêts d\'urgence']},
+     {num:'10.7',title:'Séance d\'essais pratique — mode manuel',obj:'Cadrer une séance d\'essais pratique pour s\'approprier le mode manuel.',items:['Liste d\'exercices recommandés','Conditions de sécurité','Critères de réussite']}
+   ]},
+  {id:'ch11',lvl:'n2',num:11,icon:'crosshair',
+   title:'Mode palpeur',
+   desc:'Utilisation du mode palpeur pour repositionner précisément le bras robot — procédure et validation du positionnement.',
+   tags:['Palpeur','Repositionnement'],
+   objective:'Utiliser le mode palpeur pour repositionner précisément le bras en cas de besoin.',
+   elements:['Définition du mode palpeur','Cas d\'usage typiques','Procédure de repositionnement pas-à-pas','Validation finale du positionnement'],
+   visuals:['Photo pour accompagner les explications','Capture du repositionnement final'],
+   subs:[
+     {num:'11.1',title:'Principe du mode palpeur',obj:'Comprendre l\'usage du mode palpeur.',items:['Définition du mode palpeur','Cas d\'usage typiques','Précautions']},
+     {num:'11.2',title:'Repositionnement du bras en mode palpeur',obj:'Repositionner le bras précisément à l\'aide du mode palpeur.',items:['Procédure pas-à-pas','Validation finale du positionnement'],visuals:['Capture du repositionnement final']}
+   ]},
+  {id:'ch12',lvl:'n2',num:12,icon:'bug',
+   title:'Diagnostic & Redémarrage',
+   desc:'Identifier les conditions initiales, interpréter les messages d\'erreurs, et redémarrer le cobot après un arrêt d\'urgence.',
+   tags:['Diagnostic','Redémarrage','Erreurs'],
+   objective:'Diagnostiquer les erreurs et remettre en service le cobot de façon sûre et méthodique.',
+   elements:['Liste des conditions initiales attendues avant redémarrage','Messages d\'erreurs les plus fréquents + résolutions','Procédure de redémarrage après arrêt d\'urgence','Arbre de décision selon le type d\'erreur'],
+   visuals:['Logigramme de redémarrage','Tableau erreur / cause / résolution'],
+   subs:[
+     {num:'12.1',title:'Connaissance des conditions initiales du cobot',obj:'Définir l\'état initial conforme du cobot avant redémarrage.',items:['Liste des conditions initiales attendues','Vérifications croisées'],visuals:['Photo / schéma du cobot en conditions initiales']},
+     {num:'12.2',title:'Messages d\'erreurs et résolutions',obj:'Identifier les messages d\'erreur et y répondre.',items:['Liste des messages d\'erreurs les plus fréquents','Cause probable / résolution','Renvoi vers le document gestion des erreurs'],visuals:['Tableau erreur / cause / résolution']},
+     {num:'12.3',title:'Redémarrage du cobot après arrêt d\'urgence',obj:'Redémarrer le cobot après un arrêt d\'urgence.',items:['Procédure pas-à-pas selon le type d\'arrêt','Vérifications avant remise en service'],visuals:['Logigramme de redémarrage']},
+     {num:'12.4',title:'Marche à suivre selon le type d\'erreur',obj:'Donner la marche à suivre selon la nature de l\'erreur.',items:['Arbre de décision','Actions selon code erreur','Renvoi vers le document gestion des erreurs'],visuals:['Logigramme de diagnostic d\'erreurs']}
+   ]},
+  {id:'ch13',lvl:'n3',num:13,icon:'code',
+   title:'Accès au code & lecture',
+   desc:'Accès au code source avec commentaires, lecture du Grafcet et correspondance étapes Grafcet / blocs de code.',
+   tags:['Code source','Grafcet','RAPID'],
+   objective:'Accéder au code source du programme du cobot et comprendre sa structure via le Grafcet.',
+   elements:['Procédure d\'accès au code (droits requis)','Structure générale du code','Convention de commentaires utilisée','Grafcet général du processus','Correspondance étape Grafcet / bloc de code'],
+   visuals:['Capture écran de l\'environnement de code','Grafcet complet (format pliable)','Tableau de correspondance Grafcet / code'],
+   subs:[
+     {num:'13.1',title:'Accès au code avec commentaires',obj:'Accéder au code source avec ses commentaires.',items:['Procédure d\'accès au code','Droits requis','Structure générale du code'],visuals:['Capture écran de l\'environnement de code'],technical:['Convention de commentaires utilisée']},
+     {num:'13.2',title:'Grafcet lié au code',obj:'Lire le Grafcet et faire le lien avec le code.',items:['Grafcet général du processus','Correspondance étape Grafcet / bloc de code'],visuals:['Grafcet complet (format pliable)','Tableau de correspondance Grafcet / code'],questions:['À quelle étape du Grafcet correspond cette anomalie ?']}
+   ]},
+  {id:'ch14',lvl:'n3',num:14,icon:'edit',
+   title:'Modification du programme',
+   desc:'Modifier en sécurité le code, les trajectoires et points robot, le programme via WIZARD, et la logique d\'automatisation / IHM.',
+   tags:['Code','Trajectoires','WIZARD','IHM'],
+   objective:'Modifier en sécurité tout ou partie du programme du cobot (code, trajectoires, IHM, logique automate).',
+   elements:['Règles avant modification (sauvegarde, traçabilité)','Modification des trajectoires et points robot','Utilisation de l\'outil WIZARD','Modification de la logique d\'automatisation ou de l\'IHM'],
+   visuals:['Capture écran de l\'éditeur de points','Captures écrans WIZARD'],
+   subs:[
+     {num:'14.1',title:'Modification du code',obj:'Encadrer les modifications de code.',items:['Règles avant modification (sauvegarde, traçabilité)','Procédure de modification','Validation et tests'],technical:['Outil de versionnage utilisé','Convention de nommage'],questions:['Comment modifier le code sans casser le programme ?']},
+     {num:'14.2',title:'Modification des trajectoires et points robot',obj:'Modifier en sécurité les points et trajectoires du robot.',items:['Procédure de modification d\'un point','Procédure de modification d\'une trajectoire','Validation par simulation puis essai à vitesse réduite'],visuals:['Capture écran de l\'éditeur de points'],questions:['Comment déplacer un point ?','Comment modifier une trajectoire ?']},
+     {num:'14.3',title:'Modification du programme robot (WIZARD)',obj:'Utiliser l\'outil WIZARD pour adapter le programme.',items:['Présentation de WIZARD','Procédure pas-à-pas','Limites d\'usage'],visuals:['Captures écrans WIZARD'],questions:['À quoi sert WIZARD ?','Quelles modifications puis-je faire avec ?']},
+     {num:'14.4',title:'Modification de la logique d\'automatisation ou de l\'IHM',obj:'Modifier la logique automatique ou l\'interface IHM.',items:['Périmètre des modifications possibles','Procédure et validation'],questions:['Comment ajuster une logique automate ?','Comment modifier une vue IHM ?']}
+   ]},
+  {id:'ch15',lvl:'n3',num:15,icon:'box',
+   title:'RobotStudio',
+   desc:'Connexion à RobotStudio, simulation et validation des trajectoires avant déploiement réel, configuration des Safe zones.',
+   tags:['RobotStudio','Simulation','Safe zone'],
+   objective:'Utiliser RobotStudio pour simuler, tester et valider les modifications avant mise en production.',
+   elements:['Pré-requis connexion (poste, droits, version logicielle)','Procédure de connexion et dépannage','Création d\'une simulation, validation des trajectoires','Configuration et vérification des zones de sécurité'],
+   visuals:['Captures écrans de la connexion','Captures écrans de la simulation','Schéma des zones de sécurité'],
+   subs:[
+     {num:'15.1',title:'Connexion à RobotStudio',obj:'Se connecter au logiciel RobotStudio.',items:['Pré-requis (poste, droits, version logicielle)','Procédure de connexion','Dépannage de connexion'],visuals:['Captures écrans de la connexion'],questions:['Comment je me connecte à RobotStudio ?']},
+     {num:'15.2',title:'Simulation et tests',obj:'Tester une modification en simulation avant déploiement réel.',items:['Création d\'une simulation','Validation des trajectoires','Critères de bascule en environnement réel'],visuals:['Captures écrans de la simulation'],questions:['Comment tester avant de mettre en production ?']},
+     {num:'15.3',title:'Zone de sécurité (Safe zone)',obj:'Configurer / vérifier les zones de sécurité.',items:['Définition d\'une zone de sécurité','Procédure de configuration','Validation et tests obligatoires'],visuals:['Schéma des zones de sécurité','Captures écrans de la configuration'],technical:['Paramètres de Safe zone et leur impact'],questions:['Comment configurer une zone de sécurité ?','Comment vérifier qu\'elle est active ?']}
+   ]},
+];
+
+const ANNEXES = [
+  {letter:'A',title:'Glossaire des termes techniques',desc:'Définitions de tous les termes techniques utilisés dans le manuel.',tags:['Alphabétique','Définitions','Renvois chapitres']},
+  {letter:'B',title:'Tableau récapitulatif des codes erreurs',desc:'Référentiel exhaustif : code / signification / cause probable / action / niveau requis.',tags:['Codes','Causes','Actions','Niveau requis']},
+  {letter:'C',title:'Fiches de poste',desc:'Fiches de poste opérateur et maître de production — modèles vierges inclus.',tags:['Opérateur','Maître de production','Modèles vierges']},
+  {letter:'D',title:'Plan de la cellule',desc:'Plan général de la cellule avec emplacement des arrêts d\'urgence et zones de sécurité.',tags:['Plan général','Arrêts urgence','Zones sécurité']},
+  {letter:'E',title:'Schémas électriques détaillés',desc:'Schéma général et schémas par section avec légende des symboles.',tags:['Schéma général','Par section','Légende symboles']},
+  {letter:'F',title:'Contacts / Escalade',desc:'Qui contacter selon le type de problème — coordonnées internes et fournisseurs.',tags:['Type problème','Coordonnées internes','Fournisseurs']},
+  {letter:'G',title:'Historique des révisions',desc:'Traçabilité des évolutions du document : version / date / auteur / modifications.',tags:['Version','Date','Auteur','Modifications']},
+];
+
+/* =========================================================================
+   DATA — TAB 2 (Formation N3 Détaillée)
+   ========================================================================= */
+const N3_CHAPTERS = [
+  {id:'n3-ch1',icon:'code',num:13,color:'var(--n3)',colorSoft:'var(--n3-soft)',
+   title:'Accès au code & lecture',
+   desc:'Accès sécurisé au code source, lecture avec commentaires, et lecture du Grafcet lié au programme.',
+   subs:[
+     {num:'13.1',title:'Accès au code avec commentaires',
+      obj:'Accéder au code source avec ses commentaires.',
+      elements:['Procédure d\'accès au code','Droits requis','Structure générale du code'],
+      visuals:['Capture écran de l\'environnement de code'],
+      technical:['Convention de commentaires utilisée']},
+     {num:'13.2',title:'Grafcet lié au code',
+      obj:'Lire le Grafcet et faire le lien avec le code.',
+      elements:['Grafcet général du processus','Correspondance étape Grafcet / bloc de code'],
+      visuals:['Grafcet complet (format pliable)','Tableau de correspondance Grafcet / code'],
+      questions:['À quelle étape du Grafcet correspond cette anomalie ?']}
+   ]},
+  {id:'n3-ch2',icon:'edit',num:14,color:'var(--n3)',colorSoft:'var(--n3-soft)',
+   title:'Modification du programme',
+   desc:'Encadrement des modifications de code, de trajectoires, via WIZARD et sur la logique d\'automatisation ou de l\'IHM.',
+   subs:[
+     {num:'14.1',title:'Modification du code',
+      obj:'Encadrer les modifications de code.',
+      elements:['Règles avant modification (sauvegarde, traçabilité)','Procédure de modification','Validation et tests'],
+      technical:['Outil de versionnage utilisé','Convention de nommage'],
+      questions:['Comment modifier le code sans casser le programme ?']},
+     {num:'14.2',title:'Modification des trajectoires et points robot',
+      obj:'Modifier en sécurité les points et trajectoires du robot.',
+      elements:['Procédure de modification d\'un point','Procédure de modification d\'une trajectoire','Validation par simulation puis essai à vitesse réduite'],
+      visuals:['Capture écran de l\'éditeur de points'],
+      questions:['Comment déplacer un point ?','Comment modifier une trajectoire ?']},
+     {num:'14.3',title:'Modification du programme robot (WIZARD)',
+      obj:'Utiliser l\'outil WIZARD pour adapter le programme.',
+      elements:['Présentation de WIZARD','Procédure pas-à-pas','Limites d\'usage'],
+      visuals:['Captures écrans WIZARD'],
+      questions:['À quoi sert WIZARD ?','Quelles modifications puis-je faire avec ?']},
+     {num:'14.4',title:'Modification de la logique d\'automatisation ou de l\'IHM',
+      obj:'Modifier la logique automatique ou l\'interface IHM.',
+      elements:['Périmètre des modifications possibles','Procédure et validation'],
+      questions:['Comment ajuster une logique automate ?','Comment modifier une vue IHM ?']}
+   ]},
+  {id:'n3-ch3',icon:'box',num:15,color:'var(--n3)',colorSoft:'var(--n3-soft)',
+   title:'RobotStudio',
+   desc:'Connexion à RobotStudio, simulation des modifications, tests de trajectoires et configuration des zones de sécurité.',
+   subs:[
+     {num:'15.1',title:'Connexion à RobotStudio',
+      obj:'Se connecter au logiciel RobotStudio.',
+      elements:['Pré-requis (poste, droits, version logicielle)','Procédure de connexion','Dépannage de connexion'],
+      visuals:['Captures écrans de la connexion'],
+      questions:['Comment je me connecte à RobotStudio ?']},
+     {num:'15.2',title:'Simulation et tests',
+      obj:'Tester une modification en simulation avant déploiement réel.',
+      elements:['Création d\'une simulation','Validation des trajectoires','Critères de bascule en environnement réel'],
+      visuals:['Captures écrans de la simulation'],
+      questions:['Comment tester avant de mettre en production ?']},
+     {num:'15.3',title:'Zone de sécurité (Safe zone)',
+      obj:'Configurer / vérifier les zones de sécurité.',
+      elements:['Définition d\'une zone de sécurité','Procédure de configuration','Validation et tests obligatoires'],
+      visuals:['Schéma des zones de sécurité','Captures écrans de la configuration'],
+      technical:['Paramètres de Safe zone et leur impact'],
+      questions:['Comment configurer une zone de sécurité ?','Comment vérifier qu\'elle est active ?']}
+   ]},
+];
+
+/* =========================================================================
+   RENDER — TAB 1
+   ========================================================================= */
+let activeFilter = 'all';
+
+function renderTab1() {
+  const c = document.getElementById('content1');
+  c.innerHTML = `
+    <section class="hero hero-n2">
+      <div class="h-badge"><span class="dot"></span>Trame pédagogique · Manuel Cobot</div>
+      <h1>Former les étudiants <span>EDP</span> au cobot ABB</h1>
+      <p>Structure complète du manuel d'utilisation du bras cobot. 3 niveaux de formation, 15 chapitres et 7 annexes — tout ce qu'il faut pour former, maintenir et transmettre les connaissances.</p>
+      <div class="h-meta">
+        <span class="h-tag">${icon('layers',15)} 3 niveaux de formation</span>
+        <span class="h-tag">${icon('book',15)} 15 chapitres</span>
+        <span class="h-tag">${icon('folder',15)} 7 annexes</span>
+        <span class="h-tag">${icon('users',15)} Maîtres de Production</span>
+      </div>
+      <div class="h-actions">
+        <button class="hbtn hbtn-g" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">
+          ${icon('file',15)} Voir le document source
+        </button>
+      </div>
+    </section>
+    <div class="filters" id="filters1">
+      <button class="fc active" data-lvl="all"><span class="dot"></span> Tout afficher</button>
+      <button class="fc" data-lvl="n1"><span class="dot"></span> N1 — Opérations</button>
+      <button class="fc" data-lvl="n2"><span class="dot"></span> N2 — Technique</button>
+      <button class="fc" data-lvl="n3"><span class="dot"></span> N3 — Avancé</button>
+      <button class="fc" data-lvl="ax"><span class="dot"></span> Annexes</button>
+    </div>
+    <div id="chGrid"></div>
+    <div class="empty-st" id="empSt">${icon('searchX',44)}<h3>Aucun résultat</h3><p>Essayez un autre filtre.</p></div>
+  `;
+
+  document.getElementById('filters1').addEventListener('click', e => {
+    const fc = e.target.closest('.fc'); if (!fc) return;
+    document.querySelectorAll('#filters1 .fc').forEach(x => x.classList.remove('active'));
+    fc.classList.add('active');
+    activeFilter = fc.dataset.lvl;
+    renderGrid();
+  });
+
+  renderGrid();
+  renderNav1();
+}
+
+function renderGrid() {
+  const container = document.getElementById('chGrid');
+  if (!container) return;
+  const filteredChapters = CHAPTERS.filter(ch => activeFilter === 'all' || ch.lvl === activeFilter);
+  const showAnnexes = activeFilter === 'all' || activeFilter === 'ax';
+  const empSt = document.getElementById('empSt');
+
+  if (filteredChapters.length === 0 && !showAnnexes) {
+    container.innerHTML = '';
+    empSt.style.display = 'block';
+    container.style.display = 'none';
+    return;
+  }
+  empSt.style.display = 'none';
+  container.style.display = '';
+
+  const lvlGroups = [
+    {key:'n1', show: activeFilter==='all'||activeFilter==='n1'},
+    {key:'n2', show: activeFilter==='all'||activeFilter==='n2'},
+    {key:'n3', show: activeFilter==='all'||activeFilter==='n3'},
+  ];
+
+  let html = '';
+  lvlGroups.forEach(({key, show}) => {
+    if (!show) return;
+    const chaps = CHAPTERS.filter(c => c.lvl === key);
+    if (!chaps.length) return;
+    const lv = LEVELS[key];
+    html += `<div class="sect-hd"><h2>${lv.full}</h2><span class="lv-pill lv-${key}">${lv.label}</span></div>`;
+    html += `<div class="grid" style="margin-bottom:28px">`;
+    chaps.forEach((ch, i) => {
+      html += `<article class="card" data-lvl="${ch.lvl}" data-id="${ch.id}" tabindex="0" role="button" style="animation-delay:${i*40}ms">
+        <span class="lvl-badge">${ch.lvl.toUpperCase()}</span>
+        <div class="card-hd">
+          <div class="card-ic">${icon(ch.icon,24)}</div>
+          <div>
+            <div class="card-num">Chapitre ${ch.num}</div>
+            <div class="card-title">${ch.title}</div>
+          </div>
+        </div>
+        <p class="card-desc">${ch.desc}</p>
+        <div class="card-ft">
+          ${ch.tags.map(t=>`<span class="mini-tag">${t}</span>`).join('')}
+          <span class="cta">Détails ${icon('arrowR',14)}</span>
+        </div>
+      </article>`;
+    });
+    html += `</div>`;
+  });
+
+  if (showAnnexes) {
+    html += `<div class="sect-hd" id="annexes-anchor"><h2>Annexes</h2><span class="lv-pill lv-ax">A – G</span></div>`;
+    html += `<div class="ann-grid">`;
+    ANNEXES.forEach(a => {
+      html += `<div class="ann-card">
+        <div class="ann-hd"><div class="ann-letter">${a.letter}</div><div class="ann-title">Annexe ${a.letter} — ${a.title}</div></div>
+        <div class="ann-desc">${a.desc}</div>
+        <div class="ann-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  container.innerHTML = html;
+
+  // Card click → modal
+  container.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => openChModal(card.dataset.id));
+    card.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); openChModal(card.dataset.id); }});
+  });
+}
+
+function renderNav1() {
+  const nav = document.getElementById('nav1');
+  let html = '';
+  const groups = [{key:'n1',label:'N1 — Opérations'},{key:'n2',label:'N2 — Technique'},{key:'n3',label:'N3 — Avancé'}];
+  groups.forEach(g => {
+    html += `<div class="nl">${g.label}</div>`;
+    CHAPTERS.filter(c=>c.lvl===g.key).forEach(ch => {
+      html += `<button class="ni ${ch.lvl}" data-scroll="ch-${ch.id}" data-filter="${ch.lvl}">
+        <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
+      </button>`;
+    });
+  });
+  html += `<div class="nl">Annexes</div>`;
+  html += `<button class="ni ax" data-scroll="annexes-anchor" data-filter="ax"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
+  nav.innerHTML = html;
+  nav.addEventListener('click', e => {
+    const btn = e.target.closest('.ni'); if (!btn) return;
+    document.querySelectorAll('#nav1 .ni').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('#filters1 .fc').forEach(x=>x.classList.remove('active'));
+    const fc = document.querySelector(`#filters1 .fc[data-lvl="${filter}"]`);
+    if(fc){fc.classList.add('active');activeFilter=filter;renderGrid();}
+    setTimeout(()=>{ const el=document.getElementById(btn.dataset.scroll);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);
+    closeSidebar();
+  });
+}
+
+/* =========================================================================
+   RENDER — TAB 2
+   ========================================================================= */
+function renderTab2() {
+  const c = document.getElementById('content2');
+  c.innerHTML = `
+    <section class="hero hero-n3">
+      <div class="h-badge"><span class="dot"></span>Formation N3 · Interventions Avancées</div>
+      <h1>Se former au <span>bras cobot ABB</span><br>— Niveau N3</h1>
+      <p>Interventions sur la programmation et la simulation. Réservé aux profils habilités — accès au code RAPID, modification de trajectoires, WIZARD et simulation via RobotStudio.</p>
+      <div class="h-meta">
+        <span class="h-tag">${icon('shield',15)} Profils habilités uniquement</span>
+        <span class="h-tag">${icon('code',15)} ABB RAPID / WIZARD</span>
+        <span class="h-tag">${icon('box',15)} RobotStudio</span>
+        <span class="h-tag">${icon('cpu',15)} Automatisation IHM</span>
+      </div>
+      <div class="h-actions">
+        <button class="hbtn hbtn-g" onclick="openPDF('Docs/260529_EDP_GDP_FOR_Formation N3.pdf','Formation N3 — Référence PSE')">
+          ${icon('file',15)} Voir le document source
+        </button>
+      </div>
+    </section>
+
+    <div class="intro-card">
+      <div class="intro-ic">${icon('robot',28)}</div>
+      <div class="intro-body">
+        <h3>Périmètre de la Formation N3</h3>
+        <p>Cette formation couvre les interventions avancées sur la programmation et la simulation du bras cobot ABB. Elle est réservée aux profils habilités et constitue la troisième étape du parcours de formation après N1 (Opérations) et N2 (Technique).</p>
+        <div class="intro-stats">
+          <div class="istat"><div class="n">3</div><div class="l">Chapitres</div></div>
+          <div class="istat"><div class="n">10</div><div class="l">Sections</div></div>
+          <div class="istat"><div class="n">N3</div><div class="l">Niveau Avancé</div></div>
+          <div class="istat"><div class="n">PSE</div><div class="l">Référence</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="accordion"></div>
+
+    <div class="sect-hd" style="margin-top:32px">
+      <h2>Annexes</h2><span class="lv-pill lv-ax">A – G</span>
+    </div>
+    <div class="ann-grid" id="annGrid2"></div>
+  `;
+
+  // Accordion
+  const acc = document.getElementById('accordion');
+  let accHtml = '';
+  N3_CHAPTERS.forEach((ch, ci) => {
+    accHtml += `<div class="acc-block" id="acc-${ch.id}">
+      <div class="acc-hd" data-acc="${ch.id}">
+        <div class="acc-icon" style="background:${ch.colorSoft};color:${ch.color}">${icon(ch.icon,22)}</div>
+        <div>
+          <div class="acc-num" style="color:${ch.color}">Chapitre ${ch.num}</div>
+          <div class="acc-title">${ch.title}</div>
+          <div class="acc-desc">${ch.desc}</div>
+        </div>
+        <div class="acc-chev">${icon('chevDown',20)}</div>
+      </div>
+      <div class="acc-body">
+        <div class="sec-list">
+          ${ch.subs.map(s => renderSecItem(s, ch.color)).join('')}
+        </div>
+      </div>
+    </div>`;
+  });
+  acc.innerHTML = accHtml;
+
+  // Accordion toggle
+  acc.addEventListener('click', e => {
+    const hd = e.target.closest('.acc-hd'); if (!hd) return;
+    const block = hd.closest('.acc-block');
+    const wasOpen = block.classList.contains('open');
+    document.querySelectorAll('.acc-block').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('.acc-hd').forEach(h=>h.classList.remove('open'));
+    if (!wasOpen) { block.classList.add('open'); hd.classList.add('open'); }
+  });
+
+  // Annexes
+  const annGrid = document.getElementById('annGrid2');
+  annGrid.innerHTML = ANNEXES.map(a => `
+    <div class="ann-card">
+      <div class="ann-hd"><div class="ann-letter">${a.letter}</div><div class="ann-title">Annexe ${a.letter} — ${a.title}</div></div>
+      <div class="ann-desc">${a.desc}</div>
+      <div class="ann-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+
+  renderNav2();
+}
+
+function renderSecItem(s, color) {
+  const cls = color === 'var(--n3)' ? 'n3-li' : color === 'var(--n2)' ? 'n2-li' : color === 'var(--n1)' ? 'n1-li' : 'n3-li';
+  let cols = '';
+
+  if (s.elements && s.elements.length) {
+    cols += `<div class="sec-col">
+      <div class="sec-col-ttl">${icon('check',13)} Éléments à intégrer</div>
+      <ul>${s.elements.map(e=>`<li class="${cls}">${e}</li>`).join('')}</ul>
+    </div>`;
+  }
+  if (s.visuals && s.visuals.length) {
+    cols += `<div class="sec-col">
+      <div class="sec-col-ttl">${icon('eye',13)} Visuels / Schémas</div>
+      <ul>${s.visuals.map(v=>`<li class="${cls}">${v}</li>`).join('')}</ul>
+    </div>`;
+  }
+  if (s.technical && s.technical.length) {
+    cols += `<div class="sec-col">
+      <div class="sec-col-ttl">${icon('cpu',13)} Informations techniques</div>
+      <ul>${s.technical.map(t=>`<li class="${cls}">${t}</li>`).join('')}</ul>
+    </div>`;
+  }
+  if (s.questions && s.questions.length) {
+    cols += `<div class="sec-col">
+      <div class="sec-col-ttl">${icon('bulb',13)} Questions clés</div>
+      <ul>${s.questions.map(q=>`<li class="${cls}">${q}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  return `<div class="sec-item">
+    <div class="sec-item-hd">
+      <div class="sec-num" style="background:${color}">${s.num}</div>
+      <div class="sec-title">${s.title}</div>
+    </div>
+    <div class="sec-obj"><strong>Objectif :</strong> ${s.obj}</div>
+    ${cols ? `<div class="sec-cols">${cols}</div>` : ''}
+  </div>`;
+}
+
+function renderNav2() {
+  const nav = document.getElementById('nav2');
+  let html = `<div class="nl">N3 — Interventions Avancées</div>`;
+  N3_CHAPTERS.forEach(ch => {
+    html += `<button class="ni n3" data-acc="${ch.id}">
+      <span class="ic">${icon(ch.icon,15)}</span>Chap. ${ch.num} — ${ch.title}
+    </button>`;
+  });
+  html += `<div class="nl">Annexes</div>`;
+  html += `<button class="ni ax"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
+  nav.innerHTML = html;
+  nav.addEventListener('click', e => {
+    const btn = e.target.closest('.ni'); if (!btn) return;
+    document.querySelectorAll('#nav2 .ni').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active');
+    if (btn.dataset.acc) {
+      // open accordion and scroll
+      const block = document.getElementById('acc-'+btn.dataset.acc);
+      if (block) {
+        document.querySelectorAll('.acc-block').forEach(b=>b.classList.remove('open'));
+        document.querySelectorAll('.acc-hd').forEach(h=>h.classList.remove('open'));
+        block.classList.add('open');
+        block.querySelector('.acc-hd').classList.add('open');
+        setTimeout(()=>block.scrollIntoView({behavior:'smooth',block:'start'}),80);
+      }
+    }
+    closeSidebar();
+  });
+}
+
+/* =========================================================================
+   CHAPTER MODAL
+   ========================================================================= */
+function openChModal(id) {
+  const ch = CHAPTERS.find(c=>c.id===id); if (!ch) return;
+  const lv = LEVELS[ch.lvl];
+  let mb = lv.grad;
+  let acc = lv.color;
+
+  let h = `<div class="m-banner" style="--mb:${mb}">
+    <button class="m-close" id="mClose">${icon('x',18)}</button>
+    <div class="m-ic">${icon(ch.icon,28)}</div>
+    <div class="m-lvl">${lv.full}</div>
+    <h2>Chapitre ${ch.num} — ${ch.title}</h2>
+    <div class="sub">${ch.desc}</div>
+  </div>
+  <div class="m-body" style="--acc:${acc}">`;
+
+  h += `<div class="mb-s"><div class="mb-ttl">${icon('target',15)} Objectif</div>
+    <p class="mb-text">${ch.objective}</p></div>`;
+
+  h += `<div class="mb-s"><div class="mb-ttl">${icon('check',15)} Éléments à intégrer</div>
+    <ul class="mb-list">${ch.elements.map(e=>`<li>${icon('check',15)}<span>${e}</span></li>`).join('')}</ul></div>`;
+
+  if (ch.visuals && ch.visuals.length) {
+    h += `<div class="mb-s"><div class="mb-ttl">${icon('eye',15)} Visuels / Schémas à prévoir</div>
+      <ul class="mb-list">${ch.visuals.map(v=>`<li>${icon('eye',15)}<span>${v}</span></li>`).join('')}</ul></div>`;
+  }
+
+  // Sub-sections
+  h += `<div class="mb-s"><div class="mb-ttl">${icon('layers',15)} Sous-sections (${ch.subs.length})</div>
+    <div class="mb-kv">${ch.subs.map(s=>`<div class="kv"><div class="k">${s.num}</div><div class="v">${s.title}</div></div>`).join('')}</div></div>`;
+
+  h += `<div class="mb-s"><div class="btn-row">
+    <button class="btn btn-g" id="mCloseBtn">${icon('x',15)} Fermer</button>
+  </div></div>`;
+
+  h += `</div>`;
+
+  const modal = document.getElementById('modal');
+  modal.innerHTML = h;
+  document.getElementById('modalOv').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modal.scrollTop = 0;
+  document.getElementById('mClose').onclick = closeModal;
+  document.getElementById('mCloseBtn').onclick = closeModal;
+}
+
+function closeModal() {
+  document.getElementById('modalOv').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalOv').addEventListener('click', e => { if(e.target===document.getElementById('modalOv')) closeModal(); });
+
+/* =========================================================================
+   PDF VIEWER
+   ========================================================================= */
+function openPDF(path, title) {
+  document.getElementById('pdfFrame').src = path;
+  document.getElementById('pdfTitle').textContent = title || 'Document';
+  document.getElementById('pdfOv').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePDF() {
+  document.getElementById('pdfOv').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(()=>{ document.getElementById('pdfFrame').src=''; }, 350);
+}
+document.getElementById('pdfClose').onclick = closePDF;
+document.getElementById('pdfOv').addEventListener('click', e => { if(e.target===document.getElementById('pdfOv')) closePDF(); });
+
+/* =========================================================================
+   TAB SWITCH
+   ========================================================================= */
+let activeTab = '1';
+function switchTab(tab) {
+  if (tab === activeTab) return;
+  activeTab = tab;
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel'+tab).classList.add('active');
+  document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  window.scrollTo(0,0);
+}
+document.getElementById('tabNav').addEventListener('click', e => {
+  const b = e.target.closest('.tb'); if(b) switchTab(b.dataset.tab);
+});
+document.getElementById('mobileTabs').addEventListener('click', e => {
+  const b = e.target.closest('.tb'); if(b) switchTab(b.dataset.tab);
+});
+
+/* =========================================================================
+   MOBILE SIDEBAR
+   ========================================================================= */
+function closeSidebar() {
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.remove('open'));
+  document.getElementById('backdrop').classList.remove('show');
+}
+document.getElementById('menuBtn').addEventListener('click', () => {
+  const sid = activeTab === '1' ? 'sidebar1' : 'sidebar2';
+  document.getElementById(sid).classList.add('open');
+  document.getElementById('backdrop').classList.add('show');
+});
+document.getElementById('backdrop').addEventListener('click', closeSidebar);
+
+/* =========================================================================
+   THEME
+   ========================================================================= */
+const saved = localStorage.getItem('formation-theme');
+if (saved) document.documentElement.dataset.theme = saved;
+document.getElementById('themeBtn').onclick = () => {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem('formation-theme', t);
+};
+
+/* =========================================================================
+   KEYBOARD
+   ========================================================================= */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('pdfOv').classList.contains('open')) closePDF();
+    else if (document.getElementById('modalOv').classList.contains('open')) closeModal();
+    else closeSidebar();
+  }
+});
+
+/* =========================================================================
+   INIT
+   ========================================================================= */
+renderTab1();
+renderTab2();
+</script>
+</body>
+</html>
