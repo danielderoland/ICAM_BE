@@ -729,6 +729,28 @@ const ANNEXES = [
 ];
 
 /* =========================================================================
+   DATA — SÉANCE DE FORMATION N1 (Slides 0605_ET_FOR_Slides_Formations_N1)
+   ========================================================================= */
+const N1_SLIDES = [
+  {num:2, icon:'book', title:'Lexique',
+   points:['IHM = Interface Homme-Machine : tablette de contrôle','Préhenseur : pince magnétique (aimant pour attraper les bruts)','Armoire : coffret électrique de la cellule','Cobot en position repos']},
+  {num:3, icon:'bulb', title:'Pourquoi cette formation ?',
+   points:['Évolution de l\'industrie : les métiers changent','Moins de manutention, plus de pilotage','Vous allez travailler avec des robots collaboratifs']},
+  {num:4, icon:'robot', title:'Qu\'est-ce que la cobotique ?',
+   points:['COBOT = roBOT COllaboratif — travaille avec l\'humain, pas à sa place','Les opérateurs ne sont pas remplacés','Ils évoluent : Conducteurs de cellule / Régleurs']},
+  {num:5, icon:'cpu', title:'Robot vs Cobot',
+   points:['Capteurs d\'effort — peut travailler avec l\'humain','Très adaptable → idéal pour les multiproduits','Charge utile limitée, vitesse réduite','Cellule complète : 30 000 € à 70 000 €']},
+  {num:6, icon:'monitor', title:'IHM — Page Accueil',
+   points:['Navigation entre les différentes pages de l\'interface']},
+  {num:7, icon:'sliders', title:'IHM — Page Réglage (1/2)',
+   points:['Choix du diamètre des bruts usinés','Sélection des bruts à usiner','Validation / modification des paramètres','Inversion du statut par étage ou toute l\'armoire']},
+  {num:8, icon:'sliders', title:'IHM — Page Réglage (2/2)',
+   points:['Après validation : modification impossible','Si besoin : procédure de modification des paramètres']},
+  {num:9, icon:'play', title:'IHM — Page Production',
+   points:['Lancement du cycle si tous les voyants sont à 1']},
+];
+
+/* =========================================================================
    DATA — TAB 2 (Formation N3 Détaillée)
    ========================================================================= */
 const N3_CHAPTERS = [
@@ -801,23 +823,53 @@ let activeFilter = 'all';
 
 function renderTab1() {
   const c = document.getElementById('content1');
+  const slidesCards = N1_SLIDES.map((s,i)=>`
+    <div class="card" data-lvl="n1" style="animation-delay:${i*30}ms;cursor:default">
+      <span class="lvl-badge">Slide ${s.num}</span>
+      <div class="card-hd">
+        <div class="card-ic">${icon(s.icon,22)}</div>
+        <div>
+          <div class="card-num">Formation N1 · 19/05/2026</div>
+          <div class="card-title">${s.title}</div>
+        </div>
+      </div>
+      <ul style="list-style:none;display:grid;gap:5px;flex:1;margin-top:8px">
+        ${s.points.map(p=>`<li style="font-size:.83rem;color:var(--txt2);display:flex;gap:6px;align-items:flex-start"><span style="color:var(--n1);font-weight:700;flex-shrink:0;margin-top:1px">›</span><span>${p}</span></li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
   c.innerHTML = `
     <section class="hero hero-n2">
-      <div class="h-badge"><span class="dot"></span>Trame pédagogique · Manuel Cobot</div>
+      <div class="h-badge"><span class="dot"></span>Support pédagogique · Cellule Cobotique ABB</div>
       <h1>Former les étudiants <span>EDP</span> au cobot ABB</h1>
-      <p>Structure complète du manuel d'utilisation du bras cobot. 3 niveaux de formation, 15 chapitres et 7 annexes — tout ce qu'il faut pour former, maintenir et transmettre les connaissances.</p>
+      <p>Support complet pour former les étudiants à l'utilisation sécurisée de la cellule cobotique — du lancement du cycle à la compréhension des interventions techniques.</p>
       <div class="h-meta">
-        <span class="h-tag">${icon('layers',15)} 3 niveaux de formation</span>
-        <span class="h-tag">${icon('book',15)} 15 chapitres</span>
-        <span class="h-tag">${icon('folder',15)} 7 annexes</span>
         <span class="h-tag">${icon('users',15)} Maîtres de Production</span>
+        <span class="h-tag">${icon('graduation',15)} Étudiants EDP</span>
+        <span class="h-tag">${icon('shield',15)} Sécurité &amp; bonnes pratiques</span>
+        <span class="h-tag">${icon('robot',15)} Cellule Cobotique ABB</span>
       </div>
       <div class="h-actions">
         <button class="hbtn hbtn-g" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">
-          ${icon('file',15)} Voir le document source
+          ${icon('file',15)} Manuel d'utilisation N2
         </button>
+        <a class="hbtn hbtn-p" href="Docs/0605_ET_FOR_Slides_Formations_N1.pptx" download style="text-decoration:none">
+          ${icon('play',15)} Télécharger les slides N1
+        </a>
       </div>
     </section>
+
+    <div class="sect-hd">
+      <h2>Séance de formation N1 — Déroulé pédagogique</h2>
+      <span class="lv-pill lv-n1">Slides 19/05/2026</span>
+    </div>
+    <p style="color:var(--txt2);font-size:.88rem;line-height:1.6;margin-bottom:18px">
+      Contenu de la présentation réalisée pour les étudiants EDP — intervenants : Domitille DAVAN, Paul BRUX, Nathanaël SOUK-ALOUN.<br>
+      Source : <em>0605_ET_FOR_Slides_Formations_N1</em> · Objectif : comprendre et utiliser en sécurité une cellule cobotisée.
+    </p>
+    <div class="grid" style="margin-bottom:32px">${slidesCards}</div>
+
     <div class="filters" id="filters1">
       <button class="fc active" data-lvl="all"><span class="dot"></span> Tout afficher</button>
       <button class="fc" data-lvl="n1"><span class="dot"></span> N1 — Opérations</button>
@@ -946,6 +998,39 @@ function renderNav1() {
    ========================================================================= */
 function renderTab2() {
   const c = document.getElementById('content2');
+
+  const n1PrereqCards = CHAPTERS.filter(ch=>ch.lvl==='n1').map((ch,i)=>`
+    <button class="card" data-lvl="n1" onclick="goToChapter('${ch.id}')" style="animation-delay:${i*30}ms;text-align:left;border:none;width:100%">
+      <div class="card-hd">
+        <div class="card-ic">${icon(ch.icon,20)}</div>
+        <div>
+          <div class="card-num">Chapitre ${ch.num}</div>
+          <div class="card-title" style="font-size:.9rem">${ch.title}</div>
+        </div>
+      </div>
+      <div class="card-ft" style="margin-top:10px">
+        <span class="mini-tag">${ch.tags[0]||''}</span>
+        <span class="cta">Consulter ${icon('arrowR',13)}</span>
+      </div>
+    </button>
+  `).join('');
+
+  const n2PrereqCards = CHAPTERS.filter(ch=>ch.lvl==='n2').map((ch,i)=>`
+    <button class="card" data-lvl="n2" onclick="goToChapter('${ch.id}')" style="animation-delay:${i*30}ms;text-align:left;border:none;width:100%">
+      <div class="card-hd">
+        <div class="card-ic">${icon(ch.icon,20)}</div>
+        <div>
+          <div class="card-num">Chapitre ${ch.num}</div>
+          <div class="card-title" style="font-size:.9rem">${ch.title}</div>
+        </div>
+      </div>
+      <div class="card-ft" style="margin-top:10px">
+        <span class="mini-tag">${ch.tags[0]||''}</span>
+        <span class="cta">Consulter ${icon('arrowR',13)}</span>
+      </div>
+    </button>
+  `).join('');
+
   c.innerHTML = `
     <section class="hero hero-n3">
       <div class="h-badge"><span class="dot"></span>Formation N3 · Interventions Avancées</div>
@@ -964,20 +1049,24 @@ function renderTab2() {
       </div>
     </section>
 
-    <div class="intro-card">
-      <div class="intro-ic">${icon('robot',28)}</div>
-      <div class="intro-body">
-        <h3>Périmètre de la Formation N3</h3>
-        <p>Cette formation couvre les interventions avancées sur la programmation et la simulation du bras cobot ABB. Elle est réservée aux profils habilités et constitue la troisième étape du parcours de formation après N1 (Opérations) et N2 (Technique).</p>
-        <div class="intro-stats">
-          <div class="istat"><div class="n">3</div><div class="l">Chapitres</div></div>
-          <div class="istat"><div class="n">10</div><div class="l">Sections</div></div>
-          <div class="istat"><div class="n">N3</div><div class="l">Niveau Avancé</div></div>
-          <div class="istat"><div class="n">PSE</div><div class="l">Référence</div></div>
-        </div>
-      </div>
-    </div>
+    <div class="sect-hd"><h2>Prérequis — N1 &amp; N2</h2></div>
+    <p style="color:var(--txt2);font-size:.88rem;line-height:1.6;margin-bottom:20px">
+      La maîtrise des niveaux N1 et N2 est indispensable avant toute intervention N3. Cliquez sur un chapitre pour le consulter dans l'onglet de formation.
+    </p>
 
+    <div class="sect-hd" style="margin-top:0">
+      <h2 style="font-size:1rem">N1 — Opérations quotidiennes</h2><span class="lv-pill lv-n1">N1</span>
+    </div>
+    <div class="grid" style="margin-bottom:20px">${n1PrereqCards}</div>
+
+    <div class="sect-hd">
+      <h2 style="font-size:1rem">N2 — Interventions techniques</h2><span class="lv-pill lv-n2">N2</span>
+    </div>
+    <div class="grid" style="margin-bottom:32px">${n2PrereqCards}</div>
+
+    <div class="sect-hd" style="border-top:1px solid var(--brd);padding-top:24px;margin-top:8px">
+      <h2>N3 — Interventions avancées</h2><span class="lv-pill lv-n3">N3</span>
+    </div>
     <div id="accordion"></div>
 
     <div class="sect-hd" style="margin-top:32px">
@@ -1072,7 +1161,19 @@ function renderSecItem(s, color) {
 
 function renderNav2() {
   const nav = document.getElementById('nav2');
-  let html = `<div class="nl">N3 — Interventions Avancées</div>`;
+  let html = `<div class="nl">Prérequis N1</div>`;
+  CHAPTERS.filter(c=>c.lvl==='n1').forEach(ch => {
+    html += `<button class="ni n1" data-goch="${ch.id}">
+      <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
+    </button>`;
+  });
+  html += `<div class="nl">Prérequis N2</div>`;
+  CHAPTERS.filter(c=>c.lvl==='n2').forEach(ch => {
+    html += `<button class="ni n2" data-goch="${ch.id}">
+      <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
+    </button>`;
+  });
+  html += `<div class="nl">N3 — Interventions Avancées</div>`;
   N3_CHAPTERS.forEach(ch => {
     html += `<button class="ni n3" data-acc="${ch.id}">
       <span class="ic">${icon(ch.icon,15)}</span>Chap. ${ch.num} — ${ch.title}
@@ -1086,7 +1187,6 @@ function renderNav2() {
     document.querySelectorAll('#nav2 .ni').forEach(n=>n.classList.remove('active'));
     btn.classList.add('active');
     if (btn.dataset.acc) {
-      // open accordion and scroll
       const block = document.getElementById('acc-'+btn.dataset.acc);
       if (block) {
         document.querySelectorAll('.acc-block').forEach(b=>b.classList.remove('open'));
@@ -1095,6 +1195,8 @@ function renderNav2() {
         block.querySelector('.acc-hd').classList.add('open');
         setTimeout(()=>block.scrollIntoView({behavior:'smooth',block:'start'}),80);
       }
+    } else if (btn.dataset.goch) {
+      goToChapter(btn.dataset.goch);
     }
     closeSidebar();
   });
@@ -1196,6 +1298,23 @@ document.getElementById('mobileTabs').addEventListener('click', e => {
 function closeSidebar() {
   document.querySelectorAll('.sidebar').forEach(s=>s.classList.remove('open'));
   document.getElementById('backdrop').classList.remove('show');
+}
+
+function goToChapter(chId) {
+  const ch = CHAPTERS.find(c=>c.id===chId);
+  if (!ch) return;
+  switchTab('1');
+  activeFilter = ch.lvl;
+  renderGrid();
+  setTimeout(()=>{
+    document.querySelectorAll('#filters1 .fc').forEach(x=>x.classList.remove('active'));
+    const fc = document.querySelector(`#filters1 .fc[data-lvl="${ch.lvl}"]`);
+    if (fc) fc.classList.add('active');
+    setTimeout(()=>{
+      const card = document.querySelector(`.card[data-id="${chId}"]`);
+      if (card) card.scrollIntoView({behavior:'smooth',block:'center'});
+    },120);
+  },80);
 }
 document.getElementById('menuBtn').addEventListener('click', () => {
   const sid = activeTab === '1' ? 'sidebar1' : 'sidebar2';
