@@ -367,6 +367,32 @@ img{max-width:100%;display:block}
   border-radius:10px;text-align:center;justify-content:center}
 .mobile-tabs .tb svg{margin:0 auto}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== MINIMAL DOC LAYOUT ===== */
+.page-hd{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--brd)}
+.page-hd h1{font-size:clamp(1.15rem,2vw,1.6rem);font-weight:800;letter-spacing:-.03em;color:var(--txt);margin-bottom:6px;line-height:1.2}
+.page-hd>p{color:var(--txt2);font-size:.88rem;line-height:1.65;max-width:620px;margin-bottom:12px}
+.page-hd-links{display:flex;gap:8px;flex-wrap:wrap}
+.doc-link{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;
+  font-size:.82rem;font-weight:600;background:var(--sur2);border:1px solid var(--brd);
+  color:var(--txt2);cursor:pointer;font-family:var(--font);transition:all .18s var(--ease);text-decoration:none}
+.doc-link:hover{border-color:var(--brd2);color:var(--txt);background:var(--sur3)}
+.sect-ttl{font-size:1.05rem;font-weight:800;letter-spacing:-.02em;color:var(--txt);
+  margin:28px 0 6px;padding-top:22px;border-top:1px solid var(--brd)}
+.content>.page-hd+.sect-ttl,.sect-ttl:first-child{margin-top:0;padding-top:0;border-top:none}
+.ssect-ttl{font-size:.9rem;font-weight:700;color:var(--txt2);margin:16px 0 5px;letter-spacing:-.01em}
+.sect-sub{color:var(--txt2);font-size:.87rem;line-height:1.65;margin-bottom:14px;max-width:620px}
+.ch-list{list-style:none;display:grid;margin-bottom:12px;padding:0}
+.ch-link{display:flex;align-items:center;width:100%;padding:7px 10px;border-radius:7px;
+  font-size:.87rem;color:var(--txt2);background:none;border:none;cursor:pointer;
+  font-family:var(--font);text-align:left;transition:background .15s}
+.ch-link:hover{background:var(--sur2);color:var(--txt)}
+.ann-dl{margin-bottom:24px;border-top:1px solid var(--brd)}
+.ann-dl dt{font-size:.91rem;font-weight:700;color:var(--txt);padding:11px 0 2px;border-bottom:none}
+.ann-dl dd{font-size:.83rem;color:var(--txt2);line-height:1.55;margin:0 0 0 14px}
+.ann-dl dd+dt{border-top:1px solid var(--brd)}
+.dd-tags{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 10px 14px!important}
+.acc-group{display:grid;gap:8px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -819,176 +845,122 @@ const N3_CHAPTERS = [
 /* =========================================================================
    RENDER — TAB 1
    ========================================================================= */
-let activeFilter = 'all';
-
 function renderTab1() {
   const c = document.getElementById('content1');
-  const slidesCards = N1_SLIDES.map((s,i)=>`
-    <div class="card" data-lvl="n1" style="animation-delay:${i*30}ms;cursor:default">
-      <span class="lvl-badge">Slide ${s.num}</span>
-      <div class="card-hd">
-        <div class="card-ic">${icon(s.icon,22)}</div>
-        <div>
-          <div class="card-num">Formation N1 · 19/05/2026</div>
-          <div class="card-title">${s.title}</div>
+
+  const slidesList = N1_SLIDES.map(s=>`
+    <div class="acc-block">
+      <div class="acc-hd">
+        <div class="acc-icon" style="background:var(--n1-soft);color:var(--n1)">${icon(s.icon,20)}</div>
+        <div style="flex:1">
+          <div class="acc-num" style="color:var(--n1)">Slide ${s.num}</div>
+          <div class="acc-title">${s.title}</div>
+        </div>
+        <div class="acc-chev">${icon('chevDown',20)}</div>
+      </div>
+      <div class="acc-body">
+        <div style="padding:14px 22px 18px">
+          <ul style="list-style:none;display:grid;gap:7px">
+            ${s.points.map(p=>`<li style="font-size:.87rem;color:var(--txt2);display:flex;gap:8px;align-items:flex-start"><span style="color:var(--n1);font-weight:700;flex-shrink:0">›</span><span>${p}</span></li>`).join('')}
+          </ul>
         </div>
       </div>
-      <ul style="list-style:none;display:grid;gap:5px;flex:1;margin-top:8px">
-        ${s.points.map(p=>`<li style="font-size:.83rem;color:var(--txt2);display:flex;gap:6px;align-items:flex-start"><span style="color:var(--n1);font-weight:700;flex-shrink:0;margin-top:1px">›</span><span>${p}</span></li>`).join('')}
-      </ul>
     </div>
   `).join('');
 
+  const buildLvlAcc = (lvl) => CHAPTERS.filter(ch=>ch.lvl===lvl).map(ch=>`
+    <div class="acc-block" id="ch-${ch.id}">
+      <div class="acc-hd">
+        <div class="acc-icon" style="background:${LEVELS[lvl].soft};color:${LEVELS[lvl].color}">${icon(ch.icon,20)}</div>
+        <div style="flex:1">
+          <div class="acc-num" style="color:${LEVELS[lvl].color}">Chapitre ${ch.num}</div>
+          <div class="acc-title">${ch.title}</div>
+          <div class="acc-desc">${ch.desc}</div>
+        </div>
+        <div class="acc-chev">${icon('chevDown',20)}</div>
+      </div>
+      <div class="acc-body">
+        <div class="sec-list">
+          ${ch.subs.map(s=>renderSecItem(s,LEVELS[lvl].color)).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const annDl = ANNEXES.map(a=>`
+    <dt>Annexe ${a.letter} — ${a.title}</dt>
+    <dd>${a.desc}</dd>
+    <dd class="dd-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</dd>
+  `).join('');
+
   c.innerHTML = `
-    <section class="hero hero-n2">
-      <div class="h-badge"><span class="dot"></span>Support pédagogique · Cellule Cobotique ABB</div>
-      <h1>Former les étudiants <span>EDP</span> au cobot ABB</h1>
-      <p>Support complet pour former les étudiants à l'utilisation sécurisée de la cellule cobotique — du lancement du cycle à la compréhension des interventions techniques.</p>
-      <div class="h-meta">
-        <span class="h-tag">${icon('users',15)} Maîtres de Production</span>
-        <span class="h-tag">${icon('graduation',15)} Étudiants EDP</span>
-        <span class="h-tag">${icon('shield',15)} Sécurité &amp; bonnes pratiques</span>
-        <span class="h-tag">${icon('robot',15)} Cellule Cobotique ABB</span>
+    <div class="page-hd">
+      <h1>Former les étudiants EDP</h1>
+      <p>Support de formation à l'utilisation sécurisée de la cellule cobotique ABB. Source : Manuel d'utilisation N2 — Trame.</p>
+      <div class="page-hd-links">
+        <button class="doc-link" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">${icon('file',15)} Manuel d'utilisation N2</button>
+        <a class="doc-link" href="Docs/0605_ET_FOR_Slides_Formations_N1.pptx" download>${icon('play',15)} Télécharger les slides N1</a>
       </div>
-      <div class="h-actions">
-        <button class="hbtn hbtn-g" onclick="openPDF('Docs/260527_ET_GDP_FOR_Manuel d\\'utilisation N2 .docx.pdf','Manuel d\\'utilisation N2 — Trame')">
-          ${icon('file',15)} Manuel d'utilisation N2
-        </button>
-        <a class="hbtn hbtn-p" href="Docs/0605_ET_FOR_Slides_Formations_N1.pptx" download style="text-decoration:none">
-          ${icon('play',15)} Télécharger les slides N1
-        </a>
-      </div>
-    </section>
-
-    <div class="sect-hd">
-      <h2>Séance de formation N1 — Déroulé pédagogique</h2>
-      <span class="lv-pill lv-n1">Slides 19/05/2026</span>
     </div>
-    <p style="color:var(--txt2);font-size:.88rem;line-height:1.6;margin-bottom:18px">
-      Contenu de la présentation réalisée pour les étudiants EDP — intervenants : Domitille DAVAN, Paul BRUX, Nathanaël SOUK-ALOUN.<br>
-      Source : <em>0605_ET_FOR_Slides_Formations_N1</em> · Objectif : comprendre et utiliser en sécurité une cellule cobotisée.
-    </p>
-    <div class="grid" style="margin-bottom:32px">${slidesCards}</div>
 
-    <div class="filters" id="filters1">
-      <button class="fc active" data-lvl="all"><span class="dot"></span> Tout afficher</button>
-      <button class="fc" data-lvl="n1"><span class="dot"></span> N1 — Opérations</button>
-      <button class="fc" data-lvl="n2"><span class="dot"></span> N2 — Technique</button>
-      <button class="fc" data-lvl="n3"><span class="dot"></span> N3 — Avancé</button>
-      <button class="fc" data-lvl="ax"><span class="dot"></span> Annexes</button>
-    </div>
-    <div id="chGrid"></div>
-    <div class="empty-st" id="empSt">${icon('searchX',44)}<h3>Aucun résultat</h3><p>Essayez un autre filtre.</p></div>
+    <h2 class="sect-ttl" id="slides-section">Séance de formation N1 — Déroulé pédagogique</h2>
+    <p class="sect-sub">Présentation réalisée pour les étudiants EDP — 19/05/2026. Intervenants : Domitille DAVAN, Paul BRUX, Nathanaël SOUK-ALOUN.</p>
+    <div class="acc-group" id="slidesAcc">${slidesList}</div>
+
+    <h2 class="sect-ttl" id="nav-n1">N1 — Opérations quotidiennes</h2>
+    <div class="acc-group">${buildLvlAcc('n1')}</div>
+
+    <h2 class="sect-ttl" id="nav-n2">N2 — Interventions techniques</h2>
+    <div class="acc-group">${buildLvlAcc('n2')}</div>
+
+    <h2 class="sect-ttl" id="nav-n3">N3 — Interventions avancées</h2>
+    <div class="acc-group">${buildLvlAcc('n3')}</div>
+
+    <h2 class="sect-ttl" id="annexes-anchor">Annexes</h2>
+    <dl class="ann-dl">${annDl}</dl>
   `;
 
-  document.getElementById('filters1').addEventListener('click', e => {
-    const fc = e.target.closest('.fc'); if (!fc) return;
-    document.querySelectorAll('#filters1 .fc').forEach(x => x.classList.remove('active'));
-    fc.classList.add('active');
-    activeFilter = fc.dataset.lvl;
-    renderGrid();
+  c.addEventListener('click', e => {
+    const hd = e.target.closest('.acc-hd');
+    if (!hd) return;
+    const block = hd.closest('.acc-block');
+    block.classList.toggle('open');
+    hd.classList.toggle('open');
   });
 
-  renderGrid();
   renderNav1();
-}
-
-function renderGrid() {
-  const container = document.getElementById('chGrid');
-  if (!container) return;
-  const filteredChapters = CHAPTERS.filter(ch => activeFilter === 'all' || ch.lvl === activeFilter);
-  const showAnnexes = activeFilter === 'all' || activeFilter === 'ax';
-  const empSt = document.getElementById('empSt');
-
-  if (filteredChapters.length === 0 && !showAnnexes) {
-    container.innerHTML = '';
-    empSt.style.display = 'block';
-    container.style.display = 'none';
-    return;
-  }
-  empSt.style.display = 'none';
-  container.style.display = '';
-
-  const lvlGroups = [
-    {key:'n1', show: activeFilter==='all'||activeFilter==='n1'},
-    {key:'n2', show: activeFilter==='all'||activeFilter==='n2'},
-    {key:'n3', show: activeFilter==='all'||activeFilter==='n3'},
-  ];
-
-  let html = '';
-  lvlGroups.forEach(({key, show}) => {
-    if (!show) return;
-    const chaps = CHAPTERS.filter(c => c.lvl === key);
-    if (!chaps.length) return;
-    const lv = LEVELS[key];
-    html += `<div class="sect-hd"><h2>${lv.full}</h2><span class="lv-pill lv-${key}">${lv.label}</span></div>`;
-    html += `<div class="grid" style="margin-bottom:28px">`;
-    chaps.forEach((ch, i) => {
-      html += `<article class="card" data-lvl="${ch.lvl}" data-id="${ch.id}" tabindex="0" role="button" style="animation-delay:${i*40}ms">
-        <span class="lvl-badge">${ch.lvl.toUpperCase()}</span>
-        <div class="card-hd">
-          <div class="card-ic">${icon(ch.icon,24)}</div>
-          <div>
-            <div class="card-num">Chapitre ${ch.num}</div>
-            <div class="card-title">${ch.title}</div>
-          </div>
-        </div>
-        <p class="card-desc">${ch.desc}</p>
-        <div class="card-ft">
-          ${ch.tags.map(t=>`<span class="mini-tag">${t}</span>`).join('')}
-          <span class="cta">Détails ${icon('arrowR',14)}</span>
-        </div>
-      </article>`;
-    });
-    html += `</div>`;
-  });
-
-  if (showAnnexes) {
-    html += `<div class="sect-hd" id="annexes-anchor"><h2>Annexes</h2><span class="lv-pill lv-ax">A – G</span></div>`;
-    html += `<div class="ann-grid">`;
-    ANNEXES.forEach(a => {
-      html += `<div class="ann-card">
-        <div class="ann-hd"><div class="ann-letter">${a.letter}</div><div class="ann-title">Annexe ${a.letter} — ${a.title}</div></div>
-        <div class="ann-desc">${a.desc}</div>
-        <div class="ann-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  container.innerHTML = html;
-
-  // Card click → modal
-  container.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => openChModal(card.dataset.id));
-    card.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); openChModal(card.dataset.id); }});
-  });
 }
 
 function renderNav1() {
   const nav = document.getElementById('nav1');
-  let html = '';
+  let html = `<div class="nl">Formation N1</div>`;
+  html += `<button class="ni n1" data-scroll="slides-section"><span class="ic">${icon('graduation',15)}</span>Séance de formation</button>`;
   const groups = [{key:'n1',label:'N1 — Opérations'},{key:'n2',label:'N2 — Technique'},{key:'n3',label:'N3 — Avancé'}];
   groups.forEach(g => {
     html += `<div class="nl">${g.label}</div>`;
     CHAPTERS.filter(c=>c.lvl===g.key).forEach(ch => {
-      html += `<button class="ni ${ch.lvl}" data-scroll="ch-${ch.id}" data-filter="${ch.lvl}">
+      html += `<button class="ni ${ch.lvl}" data-scroll="ch-${ch.id}">
         <span class="ic">${icon(ch.icon,15)}</span>${ch.num}. ${ch.title}
       </button>`;
     });
   });
   html += `<div class="nl">Annexes</div>`;
-  html += `<button class="ni ax" data-scroll="annexes-anchor" data-filter="ax"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
+  html += `<button class="ni ax" data-scroll="annexes-anchor"><span class="ic">${icon('folder',15)}</span>Annexes A – G</button>`;
   nav.innerHTML = html;
   nav.addEventListener('click', e => {
     const btn = e.target.closest('.ni'); if (!btn) return;
     document.querySelectorAll('#nav1 .ni').forEach(n=>n.classList.remove('active'));
     btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('#filters1 .fc').forEach(x=>x.classList.remove('active'));
-    const fc = document.querySelector(`#filters1 .fc[data-lvl="${filter}"]`);
-    if(fc){fc.classList.add('active');activeFilter=filter;renderGrid();}
-    setTimeout(()=>{ const el=document.getElementById(btn.dataset.scroll);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);
+    if (btn.dataset.scroll) {
+      const el = document.getElementById(btn.dataset.scroll);
+      if (el) {
+        if (el.classList.contains('acc-block') && !el.classList.contains('open')) {
+          el.classList.add('open');
+          el.querySelector('.acc-hd').classList.add('open');
+        }
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    }
     closeSidebar();
   });
 }
@@ -999,90 +971,50 @@ function renderNav1() {
 function renderTab2() {
   const c = document.getElementById('content2');
 
-  const n1PrereqCards = CHAPTERS.filter(ch=>ch.lvl==='n1').map((ch,i)=>`
-    <button class="card" data-lvl="n1" onclick="goToChapter('${ch.id}')" style="animation-delay:${i*30}ms;text-align:left;border:none;width:100%">
-      <div class="card-hd">
-        <div class="card-ic">${icon(ch.icon,20)}</div>
-        <div>
-          <div class="card-num">Chapitre ${ch.num}</div>
-          <div class="card-title" style="font-size:.9rem">${ch.title}</div>
-        </div>
-      </div>
-      <div class="card-ft" style="margin-top:10px">
-        <span class="mini-tag">${ch.tags[0]||''}</span>
-        <span class="cta">Consulter ${icon('arrowR',13)}</span>
-      </div>
-    </button>
-  `).join('');
+  const n1Links = CHAPTERS.filter(ch=>ch.lvl==='n1').map(ch=>
+    `<li><button class="ch-link" onclick="goToChapter('${ch.id}')">${ch.num}. ${ch.title}</button></li>`
+  ).join('');
 
-  const n2PrereqCards = CHAPTERS.filter(ch=>ch.lvl==='n2').map((ch,i)=>`
-    <button class="card" data-lvl="n2" onclick="goToChapter('${ch.id}')" style="animation-delay:${i*30}ms;text-align:left;border:none;width:100%">
-      <div class="card-hd">
-        <div class="card-ic">${icon(ch.icon,20)}</div>
-        <div>
-          <div class="card-num">Chapitre ${ch.num}</div>
-          <div class="card-title" style="font-size:.9rem">${ch.title}</div>
-        </div>
-      </div>
-      <div class="card-ft" style="margin-top:10px">
-        <span class="mini-tag">${ch.tags[0]||''}</span>
-        <span class="cta">Consulter ${icon('arrowR',13)}</span>
-      </div>
-    </button>
+  const n2Links = CHAPTERS.filter(ch=>ch.lvl==='n2').map(ch=>
+    `<li><button class="ch-link" onclick="goToChapter('${ch.id}')">${ch.num}. ${ch.title}</button></li>`
+  ).join('');
+
+  const annDl = ANNEXES.map(a=>`
+    <dt>Annexe ${a.letter} — ${a.title}</dt>
+    <dd>${a.desc}</dd>
+    <dd class="dd-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</dd>
   `).join('');
 
   c.innerHTML = `
-    <section class="hero hero-n3">
-      <div class="h-badge"><span class="dot"></span>Formation N3 · Interventions Avancées</div>
-      <h1>Se former au <span>bras cobot ABB</span><br>— Niveau N3</h1>
-      <p>Interventions sur la programmation et la simulation. Réservé aux profils habilités — accès au code RAPID, modification de trajectoires, WIZARD et simulation via RobotStudio.</p>
-      <div class="h-meta">
-        <span class="h-tag">${icon('shield',15)} Profils habilités uniquement</span>
-        <span class="h-tag">${icon('code',15)} ABB RAPID / WIZARD</span>
-        <span class="h-tag">${icon('box',15)} RobotStudio</span>
-        <span class="h-tag">${icon('cpu',15)} Automatisation IHM</span>
+    <div class="page-hd">
+      <h1>Se former au bras cobot ABB — Niveau N3</h1>
+      <p>Interventions avancées sur la programmation et la simulation du bras cobot. Réservé aux profils habilités. Source : 260529_EDP_GDP_FOR_Formation N3.</p>
+      <div class="page-hd-links">
+        <button class="doc-link" onclick="openPDF('Docs/260529_EDP_GDP_FOR_Formation N3.pdf','Formation N3 — Référence PSE')">${icon('file',15)} Document source N3</button>
       </div>
-      <div class="h-actions">
-        <button class="hbtn hbtn-g" onclick="openPDF('Docs/260529_EDP_GDP_FOR_Formation N3.pdf','Formation N3 — Référence PSE')">
-          ${icon('file',15)} Voir le document source
-        </button>
-      </div>
-    </section>
-
-    <div class="sect-hd"><h2>Prérequis — N1 &amp; N2</h2></div>
-    <p style="color:var(--txt2);font-size:.88rem;line-height:1.6;margin-bottom:20px">
-      La maîtrise des niveaux N1 et N2 est indispensable avant toute intervention N3. Cliquez sur un chapitre pour le consulter dans l'onglet de formation.
-    </p>
-
-    <div class="sect-hd" style="margin-top:0">
-      <h2 style="font-size:1rem">N1 — Opérations quotidiennes</h2><span class="lv-pill lv-n1">N1</span>
     </div>
-    <div class="grid" style="margin-bottom:20px">${n1PrereqCards}</div>
 
-    <div class="sect-hd">
-      <h2 style="font-size:1rem">N2 — Interventions techniques</h2><span class="lv-pill lv-n2">N2</span>
-    </div>
-    <div class="grid" style="margin-bottom:32px">${n2PrereqCards}</div>
+    <h2 class="sect-ttl">Prérequis — N1 &amp; N2</h2>
+    <p class="sect-sub">La maîtrise des niveaux N1 et N2 est indispensable avant les interventions N3. Cliquez sur un chapitre pour y accéder.</p>
+    <h3 class="ssect-ttl">N1 — Opérations quotidiennes</h3>
+    <ul class="ch-list">${n1Links}</ul>
+    <h3 class="ssect-ttl">N2 — Interventions techniques</h3>
+    <ul class="ch-list">${n2Links}</ul>
 
-    <div class="sect-hd" style="border-top:1px solid var(--brd);padding-top:24px;margin-top:8px">
-      <h2>N3 — Interventions avancées</h2><span class="lv-pill lv-n3">N3</span>
-    </div>
+    <h2 class="sect-ttl" id="n3-anchor">N3 — Interventions avancées</h2>
     <div id="accordion"></div>
 
-    <div class="sect-hd" style="margin-top:32px">
-      <h2>Annexes</h2><span class="lv-pill lv-ax">A – G</span>
-    </div>
-    <div class="ann-grid" id="annGrid2"></div>
+    <h2 class="sect-ttl" id="ann2-anchor">Annexes</h2>
+    <dl class="ann-dl">${annDl}</dl>
   `;
 
-  // Accordion
   const acc = document.getElementById('accordion');
   let accHtml = '';
-  N3_CHAPTERS.forEach((ch, ci) => {
+  N3_CHAPTERS.forEach(ch => {
     accHtml += `<div class="acc-block" id="acc-${ch.id}">
       <div class="acc-hd" data-acc="${ch.id}">
         <div class="acc-icon" style="background:${ch.colorSoft};color:${ch.color}">${icon(ch.icon,22)}</div>
-        <div>
+        <div style="flex:1">
           <div class="acc-num" style="color:${ch.color}">Chapitre ${ch.num}</div>
           <div class="acc-title">${ch.title}</div>
           <div class="acc-desc">${ch.desc}</div>
@@ -1098,24 +1030,14 @@ function renderTab2() {
   });
   acc.innerHTML = accHtml;
 
-  // Accordion toggle
   acc.addEventListener('click', e => {
     const hd = e.target.closest('.acc-hd'); if (!hd) return;
     const block = hd.closest('.acc-block');
     const wasOpen = block.classList.contains('open');
-    document.querySelectorAll('.acc-block').forEach(b=>b.classList.remove('open'));
-    document.querySelectorAll('.acc-hd').forEach(h=>h.classList.remove('open'));
+    document.querySelectorAll('#accordion .acc-block').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('#accordion .acc-hd').forEach(h=>h.classList.remove('open'));
     if (!wasOpen) { block.classList.add('open'); hd.classList.add('open'); }
   });
-
-  // Annexes
-  const annGrid = document.getElementById('annGrid2');
-  annGrid.innerHTML = ANNEXES.map(a => `
-    <div class="ann-card">
-      <div class="ann-hd"><div class="ann-letter">${a.letter}</div><div class="ann-title">Annexe ${a.letter} — ${a.title}</div></div>
-      <div class="ann-desc">${a.desc}</div>
-      <div class="ann-tags">${a.tags.map(t=>`<span class="ann-tag">${t}</span>`).join('')}</div>
-    </div>`).join('');
 
   renderNav2();
 }
@@ -1301,20 +1223,18 @@ function closeSidebar() {
 }
 
 function goToChapter(chId) {
-  const ch = CHAPTERS.find(c=>c.id===chId);
-  if (!ch) return;
+  if (!CHAPTERS.find(c=>c.id===chId)) return;
   switchTab('1');
-  activeFilter = ch.lvl;
-  renderGrid();
   setTimeout(()=>{
-    document.querySelectorAll('#filters1 .fc').forEach(x=>x.classList.remove('active'));
-    const fc = document.querySelector(`#filters1 .fc[data-lvl="${ch.lvl}"]`);
-    if (fc) fc.classList.add('active');
-    setTimeout(()=>{
-      const card = document.querySelector(`.card[data-id="${chId}"]`);
-      if (card) card.scrollIntoView({behavior:'smooth',block:'center'});
-    },120);
-  },80);
+    const el = document.getElementById('ch-'+chId);
+    if (el) {
+      if (!el.classList.contains('open')) {
+        el.classList.add('open');
+        el.querySelector('.acc-hd').classList.add('open');
+      }
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  },150);
 }
 document.getElementById('menuBtn').addEventListener('click', () => {
   const sid = activeTab === '1' ? 'sidebar1' : 'sidebar2';
